@@ -21,9 +21,7 @@ import android.widget.TextView;
 import com.zoinks.waterreporting.R;
 import com.zoinks.waterreporting.model.User;
 
-import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 /**
  * A login screen that offers login via email/password.
@@ -47,12 +45,6 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        try {
-            System.out.println(SHA1("admin"));
-        } catch (Exception e) {
-            System.out.println("gg");
-        }
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -131,15 +123,18 @@ public class LoginActivity extends AppCompatActivity {
      *
      * @param password  to be hashed
      * @return SHA1 hash of password
-     * @throws NoSuchAlgorithmException
-     * @throws UnsupportedEncodingException
      */
-    private String SHA1(String password) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        MessageDigest md = MessageDigest.getInstance("SHA-1");
-        byte[] textBytes = password.getBytes("iso-8859-1");
-        md.update(textBytes, 0, textBytes.length);
-        byte[] sha1hash = md.digest();
-        return convertToHex(sha1hash);
+    private String SHA1(String password) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-1");
+            byte[] textBytes = password.getBytes("iso-8859-1");
+            md.update(textBytes, 0, textBytes.length);
+            byte[] sha1hash = md.digest();
+            return convertToHex(sha1hash);
+        } catch (Exception e) {
+            return "";
+        }
+
     }
 
     private String convertToHex(byte[] data) {
@@ -210,13 +205,7 @@ public class LoginActivity extends AppCompatActivity {
             for (User user : TEST_CREDENTIALS) {
                 if (user.getUsername().equals(mUsername)) {
                     // Account exists, return true if the password matches.
-                    try {
-                        return user.getPassword().equals(SHA1(mPassword));
-                    } catch (NoSuchAlgorithmException e) {
-                        return false;
-                    } catch (UnsupportedEncodingException e) {
-                        return false;
-                    }
+                    return user.getPassword().equals(SHA1(mPassword));
                 }
             }
 

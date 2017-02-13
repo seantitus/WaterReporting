@@ -13,4 +13,5 @@
     <!-- Strings for welcome activity -->
     <string name="title_activity_welcome">WelcomeActivity</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_registration">RegistrationActivity</string>
 </resources>
