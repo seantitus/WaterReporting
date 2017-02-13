@@ -1,4 +1,4 @@
-package com.zoinks.waterreporting;
+package com.zoinks.waterreporting.controllers;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+
+import com.zoinks.waterreporting.R;
 
 public class MainActivity extends AppCompatActivity {
 
