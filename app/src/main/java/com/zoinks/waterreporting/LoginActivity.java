@@ -172,12 +172,12 @@ public class LoginActivity extends AppCompatActivity {
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
+//            try {
+//                // Simulate network access.
+//                Thread.sleep(2000);
+//            } catch (InterruptedException e) {
+//                return false;
+//            }
 
             for (String credential : DUMMY_CREDENTIALS) {
                 String[] pieces = credential.split(":");
@@ -187,8 +187,8 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
 
-            // TODO: register the new account here.
-            return true;
+            // Account doesn't exist, return false
+            return false;
         }
 
         @Override
@@ -199,7 +199,7 @@ public class LoginActivity extends AppCompatActivity {
             if (success) {
                 Intent toMain = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(toMain);
-                //finish();
+                finish(); 
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
