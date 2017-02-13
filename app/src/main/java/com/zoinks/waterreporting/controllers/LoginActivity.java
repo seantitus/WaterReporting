@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.zoinks.waterreporting.R;
+import com.zoinks.waterreporting.model.User;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -29,12 +30,8 @@ import java.security.NoSuchAlgorithmException;
  */
 public class LoginActivity extends AppCompatActivity {
 
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "admin:admin"
+    private static final User[] DUMMY_CREDENTIALS = new User[]{
+            new User("admin", "admin")
     };
 
     /**
@@ -58,9 +55,9 @@ public class LoginActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         // Set up the login form.
         mUsernameView = (AutoCompleteTextView) findViewById(R.id.username);
-
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -193,11 +190,11 @@ public class LoginActivity extends AppCompatActivity {
      */
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
-        private final String mEmail;
+        private final String mUsername;
         private final String mPassword;
 
         UserLoginTask(String email, String password) {
-            mEmail = email;
+            mUsername = email;
             mPassword = password;
         }
 
@@ -212,11 +209,10 @@ public class LoginActivity extends AppCompatActivity {
 //                return false;
 //            }
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
+            for (User user : DUMMY_CREDENTIALS) {
+                if (user.getUsername().equals(mUsername)) {
                     // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
+                    return user.getPassword().equals(mPassword);
                 }
             }
 
