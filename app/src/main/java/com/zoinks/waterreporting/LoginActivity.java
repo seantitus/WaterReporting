@@ -199,7 +199,7 @@ public class LoginActivity extends AppCompatActivity {
             if (success) {
                 Intent toMain = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(toMain);
-                finish(); 
+                finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
