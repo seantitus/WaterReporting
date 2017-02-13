@@ -30,8 +30,8 @@ import java.security.NoSuchAlgorithmException;
  */
 public class LoginActivity extends AppCompatActivity {
 
-    private static final User[] DUMMY_CREDENTIALS = new User[]{
-            new User("admin", "admin")
+    private static final User[] TEST_CREDENTIALS = new User[]{
+            new User("admin", "d033e22ae348aeb5660fc2140aec35850c4da997")
     };
 
     /**
@@ -127,6 +127,21 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     *
+     * @param password  to be hashed
+     * @return SHA1 hash of password
+     * @throws NoSuchAlgorithmException
+     * @throws UnsupportedEncodingException
+     */
+    private String SHA1(String password) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        MessageDigest md = MessageDigest.getInstance("SHA-1");
+        byte[] textBytes = password.getBytes("iso-8859-1");
+        md.update(textBytes, 0, textBytes.length);
+        byte[] sha1hash = md.digest();
+        return convertToHex(sha1hash);
+    }
+
     private String convertToHex(byte[] data) {
         StringBuilder buf = new StringBuilder();
         for (byte b : data) {
@@ -138,14 +153,6 @@ public class LoginActivity extends AppCompatActivity {
             } while (two_halfs++ < 1);
         }
         return buf.toString();
-    }
-
-    private String SHA1(String text) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        MessageDigest md = MessageDigest.getInstance("SHA-1");
-        byte[] textBytes = text.getBytes("iso-8859-1");
-        md.update(textBytes, 0, textBytes.length);
-        byte[] sha1hash = md.digest();
-        return convertToHex(sha1hash);
     }
 
     /**
@@ -200,19 +207,16 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
-//            try {
-//                // Simulate network access.
-//                Thread.sleep(2000);
-//            } catch (InterruptedException e) {
-//                return false;
-//            }
-
-            for (User user : DUMMY_CREDENTIALS) {
+            for (User user : TEST_CREDENTIALS) {
                 if (user.getUsername().equals(mUsername)) {
                     // Account exists, return true if the password matches.
-                    return user.getPassword().equals(mPassword);
+                    try {
+                        return user.getPassword().equals(SHA1(mPassword));
+                    } catch (NoSuchAlgorithmException e) {
+                        return false;
+                    } catch (UnsupportedEncodingException e) {
+                        return false;
+                    }
                 }
             }
 
