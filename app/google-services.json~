@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "255639795162",
+    "firebase_url": "https://waterreporting-fa953.firebaseio.com",
+    "project_id": "waterreporting-fa953",
+    "storage_bucket": "waterreporting-fa953.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:255639795162:android:23d1df28421b8b7a",
+        "android_client_info": {
+          "package_name": "com.zoinks.waterreporting"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "255639795162-tq7u6i9bvve0rc5mu0ccce02dbhqk4ac.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAV5ERZIU1E-wW9-vo-gqh5hXAoU4Gvcb4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
