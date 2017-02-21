@@ -7,22 +7,19 @@ android {
         applicationId "com.zoinks.waterreporting"
         minSdkVersion 23
         targetSdkVersion 25
-        jackOptions {
-			enabled true
-		}
 		versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
     compileOptions {
-        targetCompatibility JavaVersion.VERSION_1_8
-        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_7
     }
 }
 
@@ -31,10 +28,16 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
+    compile 'com.google.android.gms:play-services:10.2.0'
+    compile 'com.google.android.gms:play-services-gcm:10.2.0'
+
     compile 'com.google.firebase:firebase-core:10.2.0'
+    compile 'com.google.firebase:firebase-auth:10.2.0'
+    compile 'com.google.android.gms:play-services-auth:10.2.0'
+
     compile 'com.android.support:appcompat-v7:25.1.1'
     compile 'com.android.support:design:25.1.1'
-    compile 'com.google.firebase:firebase-auth:10.2.0'
     testCompile 'junit:junit:4.12'
 }
 apply plugin: 'com.google.gms.google-services'

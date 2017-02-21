@@ -35,7 +35,7 @@ import java.security.MessageDigest;
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends AppCompatActivity {
-
+    private String TAG = "Login";
 
     /* FIREBASE */
     private FirebaseAuth mAuth;
@@ -69,9 +69,9 @@ public class LoginActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    // User is signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                 } else {
-                    // user is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
             }
         };
@@ -107,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
     private void loginUser() {
         String username = mUsernameView.getText().toString();
         String password = mPasswordView.getText().toString();
-
+        Log.d("Login", "Attempted login with " + username + " " + password);
 
         mAuth.signInWithEmailAndPassword(username, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -115,7 +115,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         // If sign in fails, display a message to the user. If sign in succeeds
-                        // the auth state listener will be notified and logic to handle the
+                        // the aue th state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
                             Toast.makeText(LoginActivity.this, "Authentication failed.",

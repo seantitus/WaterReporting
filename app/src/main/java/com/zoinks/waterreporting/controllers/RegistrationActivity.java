@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AutoCompleteTextView;
@@ -22,6 +23,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.zoinks.waterreporting.R;
 
 public class RegistrationActivity extends AppCompatActivity {
+    private String TAG = "Registration";
     /* FIREBASE */
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -41,9 +43,9 @@ public class RegistrationActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    // User is signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                 } else {
-                    // user is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
             }
         };
@@ -77,15 +79,18 @@ public class RegistrationActivity extends AppCompatActivity {
 
     public void createAccount() {
         String email = mUsernameView.getText().toString();
-        String password = mUsernameView.getText().toString();
+        String password = mPasswordView.getText().toString();
+        Log.d(TAG, email + " : " + password);
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "onComplete()");
                         if (!task.isSuccessful()) {
                             Toast.makeText(RegistrationActivity.this, "Registration Failed",
                                     Toast.LENGTH_SHORT).show();
                         } else {
+                            Log.d("Registration", "Successful registration");
                             Intent launchLogin = new Intent(RegistrationActivity.this, LoginActivity.class);
                             startActivity(launchLogin);
                         }

@@ -31,10 +31,13 @@ public class WelcomeActivity extends AppCompatActivity {
         });
 
         Button register = (Button) findViewById(R.id.register_button);
-        register.setOnClickListener((arg0) -> {
+        register.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 Intent launchRegister = new Intent(WelcomeActivity.this, RegistrationActivity.class);
                 startActivity(launchRegister);
-            });
+            }
+        });
     }
 
 }
