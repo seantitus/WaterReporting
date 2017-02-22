@@ -23,6 +23,14 @@ public class WelcomeActivity extends AppCompatActivity {
                 startActivity(launchLogin);
             }
         });
+
+        Button register = (Button) findViewById(R.id.register_button);
+        register.setOnClickListener(new OnClickListener() {
+            public void onClick(View arg0) {
+                Intent launchLogin = new Intent(WelcomeActivity.this, RegistrationActivity.class);
+                startActivity(launchLogin);
+            }
+        });
     }
 
 }

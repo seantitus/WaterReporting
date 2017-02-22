@@ -19,23 +19,23 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.zoinks.waterreporting.R;
-import com.zoinks.waterreporting.model.User;
-
-import java.security.MessageDigest;
+import com.zoinks.waterreporting.model.UserSvcProvider;
 
 /**
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends AppCompatActivity {
 
-    private static final User[] TEST_CREDENTIALS = new User[]{
-            new User("admin", "d033e22ae348aeb5660fc2140aec35850c4da997")
-    };
+//    private static final User[] TEST_CREDENTIALS = new User[]{
+//            new User("admin", "d033e22ae348aeb5660fc2140aec35850c4da997")
+//    };
 
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private UserLoginTask mAuthTask = null;
+
+    private UserSvcProvider usp = UserSvcProvider.getInstance();
 
     // UI references.
     private AutoCompleteTextView mUsernameView;
@@ -120,70 +120,29 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     *
-     * @param password  to be hashed
-     * @return SHA1 hash of password
-     */
-    private String SHA1(String password) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-1");
-            byte[] textBytes = password.getBytes("iso-8859-1");
-            md.update(textBytes, 0, textBytes.length);
-            byte[] sha1hash = md.digest();
-            return convertToHex(sha1hash);
-        } catch (Exception e) {
-            return "";
-        }
-
-    }
-
-    private String convertToHex(byte[] data) {
-        StringBuilder buf = new StringBuilder();
-        for (byte b : data) {
-            int halfbyte = (b >>> 4) & 0x0F;
-            int two_halfs = 0;
-            do {
-                buf.append((0 <= halfbyte) && (halfbyte <= 9) ? (char) ('0' + halfbyte) : (char) ('a' + (halfbyte - 10)));
-                halfbyte = b & 0x0F;
-            } while (two_halfs++ < 1);
-        }
-        return buf.toString();
-    }
-
-    /**
      * Shows the progress UI and hides the login form.
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show) {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+        int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mLoginFormView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-                }
-            });
+        mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+        mLoginFormView.animate().setDuration(shortAnimTime).alpha(
+                show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+            }
+        });
 
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mProgressView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-                }
-            });
-        } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-        }
+        mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+        mProgressView.animate().setDuration(shortAnimTime).alpha(
+                show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            }
+        });
     }
 
     /**
@@ -195,22 +154,14 @@ public class LoginActivity extends AppCompatActivity {
         private final String mUsername;
         private final String mPassword;
 
-        UserLoginTask(String email, String password) {
-            mUsername = email;
+        UserLoginTask(String username, String password) {
+            mUsername = username;
             mPassword = password;
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            for (User user : TEST_CREDENTIALS) {
-                if (user.getUsername().equals(mUsername)) {
-                    // Account exists, return true if the password matches.
-                    return user.getPassword().equals(SHA1(mPassword));
-                }
-            }
-
-            // Account doesn't exist, return false
-            return false;
+            return usp.login(mUsername, mPassword);
         }
 
         @Override

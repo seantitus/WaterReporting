@@ -9,8 +9,10 @@ import android.view.View;
 import android.widget.Button;
 
 import com.zoinks.waterreporting.R;
+import com.zoinks.waterreporting.model.UserSvcProvider;
 
 public class MainActivity extends AppCompatActivity {
+    private UserSvcProvider usp = UserSvcProvider.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, usp.getCurrentUser().getUsername(), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         Button logout = (Button) findViewById(R.id.logout_button);
         logout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
+                usp.logout();
                 finish();
             }
         });
