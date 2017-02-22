@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.zoinks.waterreporting.R;
 import com.zoinks.waterreporting.model.User;
+import com.zoinks.waterreporting.model.UserType;
 
 import java.security.MessageDigest;
 
@@ -29,7 +30,7 @@ import java.security.MessageDigest;
 public class LoginActivity extends AppCompatActivity {
 
     private static final User[] TEST_CREDENTIALS = new User[]{
-            new User("admin", "d033e22ae348aeb5660fc2140aec35850c4da997")
+            new User("admin", "d033e22ae348aeb5660fc2140aec35850c4da997", "User", "McAdmin", UserType.Administrator)
     };
 
     /**
