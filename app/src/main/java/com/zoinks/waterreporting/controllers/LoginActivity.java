@@ -26,10 +26,6 @@ import com.zoinks.waterreporting.model.UserSvcProvider;
  */
 public class LoginActivity extends AppCompatActivity {
 
-//    private static final User[] TEST_CREDENTIALS = new User[]{
-//            new User("admin", "d033e22ae348aeb5660fc2140aec35850c4da997")
-//    };
-
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */

@@ -17,7 +17,10 @@ public class UserSvcProvider {
     private static final Map<String, User> USERS = new HashMap<>();
 
     private UserSvcProvider() {
-        USERS.put("admin", new User("admin", "d033e22ae348aeb5660fc2140aec35850c4da997"));
+        USERS.put("user", new User("user", SHA1("user"), "User", "User", UserType.USER));
+        USERS.put("worker", new User("worker", SHA1("worker"), "Worker", "User", UserType.WORKER));
+        USERS.put("manager", new User("manager", SHA1("manager"), "Manager", "User", UserType.MANAGER));
+        USERS.put("admin", new User("admin", SHA1("admin"), "Admin", "User", UserType.ADMINISTRATOR));
     }
 
     public static UserSvcProvider getInstance() {
@@ -36,11 +39,22 @@ public class UserSvcProvider {
         return currentUser;
     }
 
-    public boolean register(String username, String password) {
+    /**
+     * Attempts to register a new user
+     *
+     * @param firstName first name of the new user
+     * @param lastName last name of the new user
+     * @param username username of the new user
+     * @param password unhashed password of new user
+     * @param privilege type of new user, used for privilege
+     * @return True if the new user was registered, False if the user was not registered (ie username taken)
+     */
+    public boolean register(String firstName, String lastName, String username, String password,
+                            UserType privilege) {
         if (USERS.containsKey(username)) {
             return false;
         } else {
-            User user = new User(username, SHA1(password));
+            User user = new User(username, SHA1(password), firstName, lastName, privilege);
             USERS.put(username, user);
             return true;
         }

@@ -12,17 +12,6 @@ public class User {
     private UserType userType;
 
     /**
-     * Create new user with default UserType user
-     * @param username The user's username.
-     * @param password The user's password, should already be hashed.
-     * @param firstName The user's first name.
-     * @param lastName The user's last name.
-     */
-    public User(String username, String password, String firstName, String lastName) {
-        this(username, password, firstName, lastName, UserType.User);
-    }
-
-    /**
      * Create new user.
      * @param username The user's username.
      * @param password The user's password, should already be hashed.
