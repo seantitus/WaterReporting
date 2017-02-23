@@ -5,11 +5,17 @@ package com.zoinks.waterreporting.model;
  */
 
 public class User {
+    // required information
     private String username;
     private String password;
     private String firstName;
     private String lastName;
     private UserType userType;
+
+    // optional profile information
+    private String email;
+    private String address;
+    private String phone;
 
     /**
      * Create new user.
@@ -47,6 +53,18 @@ public class User {
         return firstName + " " + lastName;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
     public int checkPrivilege() {
         return userType.getPrivilege();
     }
@@ -63,7 +81,15 @@ public class User {
         this.lastName = lastName;
     }
 
-    public void setUserType(UserType userType) {
-        this.userType = userType;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

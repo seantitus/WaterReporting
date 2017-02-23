@@ -2,7 +2,7 @@ package com.zoinks.waterreporting.controllers;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,21 +23,30 @@ public class UpdateProfileActivity extends AppCompatActivity {
     private EditText mFirstNameView;
     private EditText mLastNameView;
     private EditText mPasswordView;
+    private EditText mEmailView;
+    private EditText mAddressView;
+    private EditText mPhoneView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.update_attributes);
+        setContentView(R.layout.update_profile);
 
         mUsernameView = (EditText) findViewById(R.id.username);
         mFirstNameView = (EditText) findViewById(R.id.firstname);
         mLastNameView = (EditText) findViewById(R.id.lastname);
         mPasswordView = (EditText) findViewById(R.id.password);
+        mEmailView = (EditText) findViewById(R.id.email);
+        mAddressView = (EditText) findViewById(R.id.address);
+        mPhoneView = (EditText) findViewById(R.id.phone);
 
         // set text fields with current info
         mUsernameView.setText(currentUser.getUsername());
         mFirstNameView.setText(currentUser.getFirstName());
         mLastNameView.setText(currentUser.getLastName());
+        mEmailView.setText(currentUser.getEmail());
+        mAddressView.setText(currentUser.getAddress());
+        mPhoneView.setText(currentUser.getPhone());
 
         Button mRegisterButton = (Button) findViewById(R.id.submit_profile_update);
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
@@ -58,16 +67,50 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
     private void attemptUpdate() {
         User current = usp.getCurrentUser();
+
+        View focusView = null;
+        boolean error = false;
+
+        // Reset errors.
+        mUsernameView.setError(null);
+        mPasswordView.setError(null);
+
         String firstName = mFirstNameView.getText().toString();
         String lastName = mLastNameView.getText().toString();
         String username = mUsernameView.getText().toString();
         String password = mPasswordView.getText().toString();
-        Log.d("Vals", firstName + " " + lastName + " " + username + " " + password);
+        String email = mEmailView.getText().toString();
+        String address = mAddressView.getText().toString();
+        String phone = mPhoneView.getText().toString();
 
-        if (usp.update(firstName, lastName, username, current.getUsername(), password)) {
-            finish();
+        // validate the info entered and set an error if necessary
+        if (TextUtils.isEmpty(username)) {  // must have username
+            mUsernameView.setError(getString(R.string.error_field_required));
+            focusView = mUsernameView;
+            error = true;
+        } else if (TextUtils.isEmpty(firstName)) {  // must have first name
+            mFirstNameView.setError(getString(R.string.error_field_required));
+            focusView = mFirstNameView;
+            error = true;
+        } else if (TextUtils.isEmpty(lastName)) {  // must have last name
+            mLastNameView.setError(getString(R.string.error_field_required));
+            focusView = mLastNameView;
+            error = true;
+        } else if (!TextUtils.isEmpty(email) && !email.matches("(.*)@(.*)\\.(.*)")) {  // invalid email
+            mEmailView.setError(getString(R.string.error_invalid_email));
+            focusView = mEmailView;
+            error = true;
+        }
+
+        if (error) {
+            focusView.requestFocus();
         } else {
-            mUsernameView.setError(getString(R.string.error_invalid_profile_update));
+            if (usp.update(current.getUsername(), username, firstName, lastName, password, email,
+                    address, phone)) {
+                finish();
+            } else {
+                mUsernameView.setError(getString(R.string.error_username_taken));
+            }
         }
     }
 

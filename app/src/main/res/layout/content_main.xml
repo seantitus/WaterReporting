@@ -14,40 +14,40 @@
 
     <TextView
         android:id="@+id/username_label"
-        android:text="Username"
+        android:text="@string/prompt_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="38dp" />
 
     <TextView
         android:id="@+id/firstname_label"
-        android:text="First Name"
+        android:text="@string/prompt_firstname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="38dp" />
 
     <TextView
         android:id="@+id/lastname_label"
-        android:text="Last Name"
+        android:text="@string/prompt_lastname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="38dp" />
 
     <TextView
         android:id="@+id/privilege_label"
-        android:text="Privilege"
+        android:text="@string/prompt_privilege"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="38dp" />
 
     <Button
-        android:text="Log out"
+        android:text="@string/logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/logout_button" />
 
     <Button
-        android:text="Update Profile"
+        android:text="@string/profile_update"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/update_profile" />

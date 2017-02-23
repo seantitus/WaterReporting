@@ -1,7 +1,5 @@
 package com.zoinks.waterreporting.model;
 
-import android.util.Log;
-
 import java.security.MessageDigest;
 import java.util.HashMap;
 import java.util.Map;
@@ -63,17 +61,17 @@ public class UserSvcProvider {
     }
 
     /**
-     * Updates attributes passed in
+     * Updates attributes passed in to update profile of current user
      *
+     * @param oldUsername username from current user
+     * @param newUsername username from edit text
      * @param firstName new or old firstName
      * @param lastName new or old lastName
-     * @param newUsername username from edit text
-     * @param oldUsername username from current user
      * @param password "" if password was unchanged, otherwise old hashed password
      * @return boolean true if profile was updated
      */
-    public boolean update(String firstName, String lastName, String newUsername, String oldUsername,
-                          String password) {
+    public boolean update(String oldUsername, String newUsername, String firstName, String lastName,
+                          String password, String email, String address, String phone) {
         if (!newUsername.equals(oldUsername)) {
             if (USERS.containsKey(newUsername)) {  // trying to change to a username that's taken
                 return false;
@@ -88,6 +86,9 @@ public class UserSvcProvider {
                     updatedUser = new User(newUsername, password, firstName, lastName,
                             UserType.values()[USERS.get(oldUsername).checkPrivilege() / 10 - 1]);
                 }
+                updatedUser.setEmail(email);
+                updatedUser.setAddress(address);
+                updatedUser.setPhone(phone);
                 USERS.put(newUsername, updatedUser);
                 USERS.remove(oldUsername);
                 currentUser = updatedUser;
@@ -100,9 +101,11 @@ public class UserSvcProvider {
             if (password.length() > 0) {
                 user.setPassword(SHA1(password));
             }
+            user.setEmail(email);
+            user.setAddress(address);
+            user.setPhone(phone);
             USERS.put(newUsername, user);
             currentUser = user;
-            Log.d("Current User: ", currentUser.getFirstName());
             return true;
         }
     }
