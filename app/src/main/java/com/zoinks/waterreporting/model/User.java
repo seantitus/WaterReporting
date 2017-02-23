@@ -1,6 +1,8 @@
 package com.zoinks.waterreporting.model;
 
 /**
+ * Class to hold information about users
+ *
  * Created by Nancy on 02/13/2017.
  */
 

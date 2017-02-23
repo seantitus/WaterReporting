@@ -22,7 +22,9 @@ import com.zoinks.waterreporting.R;
 import com.zoinks.waterreporting.model.UserSvcProvider;
 
 /**
- * A login screen that offers login via email/password.
+ * A login screen that offers login via username/password.
+ *
+ * Created by Nancy on 2/15/17.
  */
 public class LoginActivity extends AppCompatActivity {
 

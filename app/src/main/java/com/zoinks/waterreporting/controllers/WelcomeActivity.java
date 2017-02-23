@@ -9,6 +9,12 @@ import android.widget.Button;
 
 import com.zoinks.waterreporting.R;
 
+/**
+ * Welcome splash screen - first thing the user sees when opening the app
+ * Has options for logging in or registering
+ *
+ * Created by Nancy on 2/15/17.
+ */
 public class WelcomeActivity extends AppCompatActivity {
 
     @Override

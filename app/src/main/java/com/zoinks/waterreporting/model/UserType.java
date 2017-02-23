@@ -1,8 +1,9 @@
 package com.zoinks.waterreporting.model;
 
 /**
- * Created by sean on 2/21/17.
  * The four user types and their associated privilege levels.
+ *
+ * Created by sean on 2/21/17.
  */
 
 public enum UserType {
@@ -14,8 +15,10 @@ public enum UserType {
         this.privilege = privilege;
     }
 
-    /*
-     * returns the privilege level as an int
+    /**
+     * Returns the integer representation of privilege level associated with a user type
+     *
+     * @return integer representation of privilege level associated with a user type
      */
     public int getPrivilege() {
         return this.privilege;

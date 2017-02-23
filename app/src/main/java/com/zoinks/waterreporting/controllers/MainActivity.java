@@ -15,6 +15,11 @@ import com.zoinks.waterreporting.model.User;
 import com.zoinks.waterreporting.model.UserSvcProvider;
 import com.zoinks.waterreporting.model.UserType;
 
+/**
+ * Main home screen activity - the first thing the user sees after signing in
+ *
+ * Created by Nancy on 2/15/17.
+ */
 public class MainActivity extends AppCompatActivity {
     private UserSvcProvider usp = UserSvcProvider.getInstance();
 
