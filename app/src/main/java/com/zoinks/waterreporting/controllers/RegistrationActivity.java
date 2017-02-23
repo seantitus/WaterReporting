@@ -48,6 +48,14 @@ public class RegistrationActivity extends AppCompatActivity {
                 attemptRegistration();
             }
         });
+
+        Button mCancelButton = (Button) findViewById(R.id.cancel_register_button);
+        mCancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     private void attemptRegistration() {
