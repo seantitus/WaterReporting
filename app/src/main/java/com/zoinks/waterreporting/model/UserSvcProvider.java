@@ -64,30 +64,43 @@ public class UserSvcProvider {
 
     /**
      * Updates attributes passed in
+     *
      * @param firstName new or old firstName
      * @param lastName new or old lastName
-     * @param username username from edit text
+     * @param newUsername username from edit text
      * @param oldUsername username from current user
-     * @param password new or old password
+     * @param password "" if password was unchanged, otherwise old hashed password
      * @return boolean true if profile was updated
      */
-    public boolean update(String firstName, String lastName, String username, String oldUsername, String password) {
-        if (!username.equals(oldUsername)) {
-            if (USERS.containsKey(username)) {
+    public boolean update(String firstName, String lastName, String newUsername, String oldUsername,
+                          String password) {
+        if (!newUsername.equals(oldUsername)) {
+            if (USERS.containsKey(newUsername)) {  // trying to change to a username that's taken
                 return false;
             } else {
-                User updatedUser = new User(username, SHA1(password), firstName, lastName,
-                        UserType.values()[USERS.get(oldUsername).checkPrivilege() / 10 - 1]);
-                USERS.put(username, updatedUser);
+                User updatedUser;
+                if (password.length() > 0) {
+                    // changing password
+                    updatedUser = new User(newUsername, SHA1(password), firstName, lastName,
+                            UserType.values()[USERS.get(oldUsername).checkPrivilege() / 10 - 1]);
+                } else {
+                    // keeping same password
+                    updatedUser = new User(newUsername, password, firstName, lastName,
+                            UserType.values()[USERS.get(oldUsername).checkPrivilege() / 10 - 1]);
+                }
+                USERS.put(newUsername, updatedUser);
                 USERS.remove(oldUsername);
+                currentUser = updatedUser;
                 return true;
             }
         } else {
-            User user = USERS.get(username);
+            User user = USERS.get(newUsername);
             user.setFirstName(firstName);
             user.setLastName(lastName);
-            user.setPassword(SHA1(password));
-            USERS.put(username, user);
+            if (password.length() > 0) {
+                user.setPassword(SHA1(password));
+            }
+            USERS.put(newUsername, user);
             currentUser = user;
             Log.d("Current User: ", currentUser.getFirstName());
             return true;

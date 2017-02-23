@@ -36,8 +36,6 @@ public class MainActivity extends AppCompatActivity {
         mLastnameView = (TextView) findViewById(R.id.lastname_label);
         mPrivilegeView = (TextView) findViewById(R.id.privilege_label);
 
-        updateLabels();
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +61,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(launchUpdate);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateLabels();
     }
 
     private void updateLabels() {
