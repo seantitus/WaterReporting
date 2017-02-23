@@ -102,6 +102,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
             error = true;
         }
 
+        // if an error occurred, display it, otherwise attempt to update the user
         if (error) {
             focusView.requestFocus();
         } else {

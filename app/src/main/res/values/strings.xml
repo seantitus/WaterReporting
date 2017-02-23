@@ -5,7 +5,6 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_registration">RegistrationActivity</string>
     <string name="prompt_username">Username</string>
-    <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="prompt_firstname">First Name</string>
     <string name="prompt_lastname">Last Name</string>
@@ -14,17 +13,13 @@
     <string name="action_sign_in_short">Sign in</string>
     <string name="action_register">Register</string>
     <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
     <string name="error_username_taken">This username is already taken</string>\
     <string name="go_home">Go Home</string>
 
     <!-- Strings for updating profile -->
-    <string name="update_prompt_username">New Username</string>
-    <string name="update_prompt_firstname">New First Name</string>
-    <string name="update_prompt_lastname">New Last Name</string>
-    <string name="update_prompt_email">New Email</string>
-    <string name="update_prompt_address">New Postal Address</string>
-    <string name="update_prompt_phone">New Phone Number</string>
+    <string name="update_prompt_email">Email</string>
+    <string name="update_prompt_address">Postal Address</string>
+    <string name="update_prompt_phone">Phone Number</string>
     <string name="update_prompt_password">New Password</string>
     <string name="error_invalid_email">Invalid Email</string>
     <string name="profile_update">Update Profile</string>
@@ -32,6 +27,7 @@
     <!-- Strings for app -->
     <string name="title_activity_welcome">WelcomeActivity</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="error_field_required">This field is required</string>
     <string name="action_cancel">Cancel</string>
     <string name="logout">Log out</string>
 </resources>
