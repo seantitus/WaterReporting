@@ -3,15 +3,20 @@ package com.zoinks.waterreporting.controllers;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.zoinks.waterreporting.R;
 import com.zoinks.waterreporting.model.User;
 import com.zoinks.waterreporting.model.UserSvcProvider;
 
 /**
+ * Activity to allow users to update their profile
+ *
  * Created by stefan on 2/22/17.
  */
 
@@ -47,6 +52,16 @@ public class UpdateProfileActivity extends AppCompatActivity {
         mEmailView.setText(currentUser.getEmail());
         mAddressView.setText(currentUser.getAddress());
         mPhoneView.setText(currentUser.getPhone());
+        mPhoneView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+                if (id == EditorInfo.IME_NULL) {
+                    attemptUpdate();
+                    return true;
+                }
+                return false;
+            }
+        });
 
         Button mRegisterButton = (Button) findViewById(R.id.submit_profile_update);
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
