@@ -29,6 +29,10 @@
             android:name=".controllers.RegistrationActivity"
             android:label="@string/title_activity_registration"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".controllers.UpdateProfileActivity"
+            android:label="UpdateProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

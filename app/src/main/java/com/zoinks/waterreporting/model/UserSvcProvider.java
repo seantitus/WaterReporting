@@ -1,5 +1,7 @@
 package com.zoinks.waterreporting.model;
 
+import android.util.Log;
+
 import java.security.MessageDigest;
 import java.util.HashMap;
 import java.util.Map;
@@ -56,6 +58,38 @@ public class UserSvcProvider {
         } else {
             User user = new User(username, SHA1(password), firstName, lastName, privilege);
             USERS.put(username, user);
+            return true;
+        }
+    }
+
+    /**
+     * Updates attributes passed in
+     * @param firstName new or old firstName
+     * @param lastName new or old lastName
+     * @param username username from edit text
+     * @param oldUsername username from current user
+     * @param password new or old password
+     * @return boolean true if profile was updated
+     */
+    public boolean update(String firstName, String lastName, String username, String oldUsername, String password) {
+        if (!username.equals(oldUsername)) {
+            if (USERS.containsKey(username)) {
+                return false;
+            } else {
+                User updatedUser = new User(username, SHA1(password), firstName, lastName,
+                        UserType.values()[USERS.get(oldUsername).checkPrivilege() / 10 - 1]);
+                USERS.put(username, updatedUser);
+                USERS.remove(oldUsername);
+                return true;
+            }
+        } else {
+            User user = USERS.get(username);
+            user.setFirstName(firstName);
+            user.setLastName(lastName);
+            user.setPassword(SHA1(password));
+            USERS.put(username, user);
+            currentUser = user;
+            Log.d("Current User: ", currentUser.getFirstName());
             return true;
         }
     }
