@@ -1,6 +1,5 @@
 package com.zoinks.waterreporting.model;
 
-import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -9,18 +8,21 @@ import java.util.Date;
  * Created by Nancy on 03/01/2017.
  */
 
-public class WaterReport {
+public abstract class WaterReport {
     private static int nextId = 0;
 
     private int id;
     private User author;
     private Date timestamp;
+    private double latitude;
+    private double longitude;
 
-    public WaterReport(User author) {
+    public WaterReport(Date timestamp, User author, double latitude, double longitude) {
         this.id = nextId++;
         this.author = author;
-        Calendar calendar = Calendar.getInstance();
-        this.timestamp = calendar.getTime();
+        this.timestamp = timestamp;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     /**
@@ -30,22 +32,16 @@ public class WaterReport {
      * @return id of the water report
      */
     public int getId() {
-        return this.id;
-    }
-
-    public void setAuthor(User newAuthor) {
-        author = newAuthor;
+        return id;
     }
 
     public User getAuthor() {
         return author;
     }
 
-    public void setTimestamp(Date newDate) {
-        timestamp = newDate;
-    }
-
     public Date getTimestamp() {
         return timestamp;
     }
+
+
 }
