@@ -24,8 +24,8 @@ public class MainActivity extends AppCompatActivity {
     private UserSvcProvider usp = UserSvcProvider.getInstance();
 
     private TextView mUsernameView;
-    private TextView mFirstnameView;
-    private TextView mLastnameView;
+    private TextView mFirstNameView;
+    private TextView mLastNameView;
     private TextView mPrivilegeView;
 
 
@@ -37,8 +37,8 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         mUsernameView = (TextView) findViewById(R.id.username_label);
-        mFirstnameView = (TextView) findViewById(R.id.firstname_label);
-        mLastnameView = (TextView) findViewById(R.id.lastname_label);
+        mFirstNameView = (TextView) findViewById(R.id.firstname_label);
+        mLastNameView = (TextView) findViewById(R.id.lastname_label);
         mPrivilegeView = (TextView) findViewById(R.id.privilege_label);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -96,8 +96,8 @@ public class MainActivity extends AppCompatActivity {
     private void updateLabels() {
         User current = usp.getCurrentUser();
         mUsernameView.setText(String.format("Username: %s", current.getUsername()));
-        mFirstnameView.setText(String.format("First Name: %s", current.getFirstName()));
-        mLastnameView.setText(String.format("Last Name: %s", current.getLastName()));
+        mFirstNameView.setText(String.format("First Name: %s", current.getFirstName()));
+        mLastNameView.setText(String.format("Last Name: %s", current.getLastName()));
         UserType privilege = UserType.values()[current.checkPrivilege() / 10 - 1];
         mPrivilegeView.setText(String.format("Privilege: %s", privilege.name()));
     }

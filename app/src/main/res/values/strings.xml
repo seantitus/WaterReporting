@@ -31,9 +31,13 @@
     <string name="error_field_required">This field is required</string>
     <string name="action_cancel">Cancel</string>
     <string name="logout">Log out</string>
+    <string name="action_submit">Submit</string>
+
+    <!-- Strings for new water report -->
     <string name="prompt_latitude">Latitude</string>
     <string name="prompt_longitude">Longitude</string>
     <string name="prompt_water_source_type">Water Source Type</string>
-    <string name="action_submit_water_source_report">Submit</string>
     <string name="prompt_water_source_condition">Water Condition</string>
+    <string name="invalid_latitude">Must be between -90.0 and 90.0</string>
+    <string name="invalid_longitude">Must be between -180.0 and 180.0</string>
 </resources>

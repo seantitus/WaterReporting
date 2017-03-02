@@ -19,12 +19,17 @@ public class WaterReportSvcProvider {
     private static UserSvcProvider usp = UserSvcProvider.getInstance();
 
     private WaterReportSvcProvider() {
+        // hardcoded data for testing the recycler view
+        addReport(81, 130.1, WaterSourceType.STREAM, WaterSourceCondition.TREATABLE_MUDDY);
+        addReport(-37, -27, WaterSourceType.WELL, WaterSourceCondition.POTABLE);
         addReport(8, 31, WaterSourceType.BOTTLED, WaterSourceCondition.POTABLE);
-        addReport(2, 3, WaterSourceType.OTHER, WaterSourceCondition.TREATABLECLEAR);
-        addReport(77, 21, WaterSourceType.LAKE, WaterSourceCondition.TREATABLEMUDDY);
-        addReport(1, 1, WaterSourceType.SPRING, WaterSourceCondition.WASTE);
+        addReport(-2, 3, WaterSourceType.OTHER, WaterSourceCondition.TREATABLE_CLEAR);
+        addReport(77, 21, WaterSourceType.LAKE, WaterSourceCondition.TREATABLE_MUDDY);
+        addReport(1, -6.771, WaterSourceType.SPRING, WaterSourceCondition.WASTE);
+        addReport(42, 20.1, WaterSourceType.STREAM, WaterSourceCondition.TREATABLE_MUDDY);
         addReport(37, 27, WaterSourceType.WELL, WaterSourceCondition.POTABLE);
-        addReport(32.2, 332.2, WaterSourceType.STREAM, WaterSourceCondition.POTABLE);
+        addReport(32.2, -111.2, WaterSourceType.STREAM, WaterSourceCondition.POTABLE);
+        addReport(-23.1, 31.6, WaterSourceType.OTHER, WaterSourceCondition.TREATABLE_CLEAR);
     }
 
     /**
@@ -48,10 +53,20 @@ public class WaterReportSvcProvider {
         return list;
     }
 
+    /**
+     * Gets the water report that was just clicked to be displayed
+     *
+     * @return the water report that was just clicked to be displayed
+     */
     public WaterReport getCurrentWaterReport() {
         return currentWaterReport;
     }
 
+    /**
+     * Sets the water report that the user just clicked on
+     *
+     * @param currentWaterReport the report to be displayed
+     */
     public void setCurrentWaterReport(WaterReport currentWaterReport) {
         this.currentWaterReport = currentWaterReport;
     }

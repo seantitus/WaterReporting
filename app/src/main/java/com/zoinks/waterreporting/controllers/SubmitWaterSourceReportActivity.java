@@ -13,25 +13,23 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.zoinks.waterreporting.R;
-import com.zoinks.waterreporting.model.UserType;
 import com.zoinks.waterreporting.model.WaterReportSvcProvider;
 import com.zoinks.waterreporting.model.WaterSourceCondition;
 import com.zoinks.waterreporting.model.WaterSourceType;
 
 /**
+ * Activity for adding a water source report - which can be done by any user
+ *
  * Created by stefan on 3/1/17.
  */
 
 public class SubmitWaterSourceReportActivity extends AppCompatActivity {
-    private WaterReportSvcProvider wsp;
+    private WaterReportSvcProvider wsp = WaterReportSvcProvider.getInstance();
 
     private TextView mLongitudeView;
     private TextView mLatitudeView;
     private Spinner mWaterSourceTypeSpinner;
     private Spinner mWaterConditionTypeSpinner;
-
-    private View mProgressView;
-    private View mSubmissionFormView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,15 +39,10 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        wsp = WaterReportSvcProvider.getInstance();
-
         mLongitudeView = (EditText) findViewById(R.id.longitude);
         mLatitudeView = (EditText) findViewById(R.id.latitude);
         mWaterSourceTypeSpinner = (Spinner) findViewById(R.id.type_spinner);
         mWaterConditionTypeSpinner = (Spinner) findViewById(R.id.condition_spinner);
-
-        mSubmissionFormView = findViewById(R.id.submit_water_source_report_form);
-        mProgressView = findViewById(R.id.submit_water_source_report_progress);
 
         ArrayAdapter<String> adapter
                 = new ArrayAdapter(this,
@@ -79,9 +72,11 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
                 finish();
             }
         });
-
     }
 
+    /**
+     * Attempts to create a new water report - validates the data entered
+     */
     private void attemptSubmission() {
         String latString = mLatitudeView.getText().toString();
         String longString = mLongitudeView.getText().toString();
@@ -89,31 +84,48 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
         View focusView = null;
         boolean cancel = false;
 
+        // check that users input a number, otherwise tell them it's required
         if (TextUtils.isEmpty(latString)) {
+            mLatitudeView.setError(getString(R.string.error_field_required));
             focusView = mLatitudeView;
             cancel = true;
         } else if (TextUtils.isEmpty(longString)) {
+            mLongitudeView.setError(getString(R.string.error_field_required));
+            focusView = mLongitudeView;
+            cancel = true;
+        }
+
+        // if there was an error, set the error on the view and return
+        if (cancel) {
+            focusView.requestFocus();
+            return;
+        }
+
+        // check that the inputted values are a valid range for latitude/longitude
+        double latitude = Double.parseDouble(latString);
+        double longitude = Double.parseDouble(longString);
+        if (latitude < -90.0 || latitude > 90) {
+            mLatitudeView.setError(getString(R.string.invalid_latitude));
+            focusView = mLatitudeView;
+            cancel = true;
+        } else if (longitude < -180.0 || longitude > 180.0) {
+            mLongitudeView.setError(getString(R.string.invalid_longitude));
             focusView = mLongitudeView;
             cancel = true;
         }
 
         if (cancel) {
             focusView.requestFocus();
-            return;
+        } else {
+            WaterSourceType waterSourceType
+                    = (WaterSourceType) mWaterSourceTypeSpinner.getSelectedItem();
+            WaterSourceCondition waterSourceCondition
+                    = (WaterSourceCondition) mWaterConditionTypeSpinner.getSelectedItem();
+            wsp.addReport(latitude, longitude, waterSourceType, waterSourceCondition);
+
+            Intent toMain = new Intent(SubmitWaterSourceReportActivity.this, MainActivity.class);
+            startActivity(toMain);
+            finish();
         }
-
-
-        double latitude = Double.parseDouble(latString);
-        double longitude = Double.parseDouble(longString);
-        WaterSourceType waterSourceType
-                = (WaterSourceType) mWaterSourceTypeSpinner.getSelectedItem();
-        WaterSourceCondition waterSourceCondition
-                = (WaterSourceCondition) mWaterConditionTypeSpinner.getSelectedItem();
-        wsp.addReport(latitude, longitude, waterSourceType, waterSourceCondition);
-
-        Intent toMain = new Intent(SubmitWaterSourceReportActivity.this, MainActivity.class);
-        startActivity(toMain);
-        finish();
     }
-
 }

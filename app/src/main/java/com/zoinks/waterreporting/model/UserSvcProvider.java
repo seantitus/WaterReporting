@@ -48,7 +48,7 @@ public class UserSvcProvider {
      * @param firstName first name of the new user
      * @param lastName last name of the new user
      * @param username username of the new user
-     * @param password unhashed password of new user
+     * @param password un-hashed password of new user
      * @param privilege type of new user, used for privilege
      * @return True if the new user was registered, False if the user was not registered (ie username taken)
      */
