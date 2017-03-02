@@ -66,6 +66,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(launchUpdate);
             }
         });
+
+        Button viewList = (Button) findViewById(R.id.view_list);
+        viewList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent launchList = new Intent(MainActivity.this, ListActivity.class);
+                startActivity(launchList);
+            }
+        });
     }
 
     @Override

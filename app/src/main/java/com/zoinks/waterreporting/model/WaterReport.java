@@ -43,5 +43,16 @@ public abstract class WaterReport {
         return timestamp;
     }
 
+    public double getLatitude() {
+        return latitude;
+    }
 
+    public double getLongitude() {
+        return longitude;
+    }
+
+    @Override
+    public String toString() {
+        return id + " " + author.getUsername() + " " + timestamp + " " + latitude + "," + longitude;
+    }
 }

@@ -10,7 +10,36 @@ import java.util.Date;
  */
 
 public class WaterSourceReport extends WaterReport {
-    public WaterSourceReport(Date timestamp, User author, double latitude, double longitude) {
+    private WaterSourceType type;
+    private WaterSourceCondition condition;
+
+    public WaterSourceReport(Date timestamp, User author, double latitude, double longitude,
+                             WaterSourceType type, WaterSourceCondition condition) {
         super(timestamp, author, latitude, longitude);
+        this.type = type;
+        this.condition = condition;
+    }
+
+    /**
+     * Returns the type of water at the water source for this water source report
+     *
+     * @return the type of water at the water source for this water source report
+     */
+    public WaterSourceType getType() {
+        return type;
+    }
+
+    /**
+     * Returns the condition of water at the water source for this water source report
+     *
+     * @return the condition of water at the water source for this water source report
+     */
+    public WaterSourceCondition getCondition() {
+        return condition;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + " " + type + " " + condition;
     }
 }

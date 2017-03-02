@@ -14,11 +14,17 @@ import java.util.List;
 
 public class WaterReportSvcProvider {
     private static WaterReportSvcProvider wrsp;
+    private WaterReport currentWaterReport;
     private static final List<WaterReport> list = new ArrayList<>();
     private static UserSvcProvider usp = UserSvcProvider.getInstance();
 
     private WaterReportSvcProvider() {
-        // TODO: pre-fill testing info
+        addReport(8, 31, WaterSourceType.BOTTLED, WaterSourceCondition.POTABLE);
+        addReport(2, 3, WaterSourceType.OTHER, WaterSourceCondition.TREATABLECLEAR);
+        addReport(77, 21, WaterSourceType.LAKE, WaterSourceCondition.TREATABLEMUDDY);
+        addReport(1, 1, WaterSourceType.SPRING, WaterSourceCondition.WASTE);
+        addReport(37, 27, WaterSourceType.WELL, WaterSourceCondition.POTABLE);
+        addReport(32.2, 332.2, WaterSourceType.STREAM, WaterSourceCondition.POTABLE);
     }
 
     /**
@@ -42,14 +48,23 @@ public class WaterReportSvcProvider {
         return list;
     }
 
+    public WaterReport getCurrentWaterReport() {
+        return currentWaterReport;
+    }
+
+    public void setCurrentWaterReport(WaterReport currentWaterReport) {
+        this.currentWaterReport = currentWaterReport;
+    }
+
     /**
-     * Adds a water report, author as the current user and time as current time
+     * Adds a water report where author is the current user and time is current time
      */
-    public void addReport() {
+    public void addReport(double latitude, double longitude, WaterSourceType type,
+                          WaterSourceCondition condition) {
         Calendar calendar = Calendar.getInstance();
         Date time = calendar.getTime();
-        //list.add();
-        // get author from user sv provider
+        list.add(new WaterSourceReport(time, usp.getCurrentUser(), latitude, longitude, type,
+                condition));
     }
 
     /**

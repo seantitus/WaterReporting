@@ -23,6 +23,11 @@ public class UserSvcProvider {
         USERS.put("admin", new User("admin", SHA1("admin"), "Admin", "User", UserType.ADMINISTRATOR));
     }
 
+    /**
+     * Returns the UserSvcProvider instance (singleton design pattern)
+     *
+     * @return the UserSvcProvider instance
+     */
     public static UserSvcProvider getInstance() {
         if (usp == null) {
             usp = new UserSvcProvider();
@@ -61,7 +66,7 @@ public class UserSvcProvider {
     }
 
     /**
-     * Updates attributes passed in to update profile of current user
+     * Uses attributes passed in to update profile of current user
      *
      * @param oldUsername username from current user
      * @param newUsername username from edit text
@@ -154,6 +159,12 @@ public class UserSvcProvider {
         }
     }
 
+    /**
+     * Helper method for SHA1() that converts hash from bytes to hex
+     *
+     * @param data as a byte array to be converted to hex
+     * @return hex of byte array
+     */
     private String convertToHex(byte[] data) {
         StringBuilder buf = new StringBuilder();
         for (byte b : data) {
