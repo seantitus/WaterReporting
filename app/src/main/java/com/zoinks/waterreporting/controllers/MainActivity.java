@@ -75,6 +75,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(launchList);
             }
         });
+
+        Button submitWaterSourceReport = (Button) findViewById(R.id.submit_source_report);
+        submitWaterSourceReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent launchList = new Intent(MainActivity.this,
+                        SubmitWaterSourceReportActivity.class);
+                startActivity(launchList);
+            }
+        });
     }
 
     @Override
