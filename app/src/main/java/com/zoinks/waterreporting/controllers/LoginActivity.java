@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.zoinks.waterreporting.R;
 import com.zoinks.waterreporting.model.UserSvcProvider;
 
@@ -27,6 +28,9 @@ import com.zoinks.waterreporting.model.UserSvcProvider;
  * Created by Nancy on 2/15/17.
  */
 public class LoginActivity extends AppCompatActivity {
+
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
@@ -45,6 +49,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        mAuth = FirebaseAuth.getInstance();
 
         // Set up the login form.
         mUsernameView = (AutoCompleteTextView) findViewById(R.id.username);
@@ -78,6 +84,7 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }
         });
+
     }
 
     /**

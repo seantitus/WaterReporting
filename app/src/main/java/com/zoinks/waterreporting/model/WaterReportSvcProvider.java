@@ -45,11 +45,12 @@ public class WaterReportSvcProvider {
     /**
      * Adds a water report, author as the current user and time as current time
      */
-    public void addReport() {
+    public void addWaterSourceReport(double latitude, double longitude,
+                          WaterSourceType waterSourceType) {
         Calendar calendar = Calendar.getInstance();
         Date time = calendar.getTime();
-        //list.add();
-        // get author from user sv provider
+        User u = usp.getCurrentUser();
+        list.add(new WaterSourceReport(time, u, latitude, longitude, waterSourceType));
     }
 
     /**

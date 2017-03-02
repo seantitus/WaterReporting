@@ -23,13 +23,16 @@ public class UserSvcProvider {
         USERS.put("admin", new User("admin", SHA1("admin"), "Admin", "User", UserType.ADMINISTRATOR));
     }
 
+    /**
+     * Accessor for singleton instance of UserSvcProvider
+     * @return UserSvcProvider singleton instance
+     */
     public static UserSvcProvider getInstance() {
         if (usp == null) {
             usp = new UserSvcProvider();
         }
         return usp;
     }
-
     /**
      * Returns the currently logged in user, if any
      *

@@ -10,7 +10,14 @@ import java.util.Date;
  */
 
 public class WaterSourceReport extends WaterReport {
-    public WaterSourceReport(Date timestamp, User author, double latitude, double longitude) {
+    private WaterSourceType waterSourceType;
+    public WaterSourceReport(Date timestamp, User author, double latitude,
+                             double longitude, WaterSourceType waterSourceType) {
         super(timestamp, author, latitude, longitude);
+        this.waterSourceType = waterSourceType;
+    }
+
+    public WaterSourceType getWaterSourceType() {
+        return waterSourceType;
     }
 }
