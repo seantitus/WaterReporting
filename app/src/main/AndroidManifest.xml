@@ -33,7 +33,14 @@
             android:name=".controllers.UpdateProfileActivity"
             android:label="UpdateProfileActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".controllers.ListActivity"></activity>
+        <activity
+            android:name=".controllers.ListActivity"
+            android:label="@string/title_activity_list"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".controllers.SubmitWaterSourceReportActivity"
+            android:label="SubmitWaterSourceReportActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

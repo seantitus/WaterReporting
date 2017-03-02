@@ -24,9 +24,8 @@ public class UserSvcProvider {
     }
 
     /**
-     * Returns the UserSvcProvider instance (singleton design pattern)
-     *
-     * @return the UserSvcProvider instance
+     * Accessor for singleton instance of UserSvcProvider
+     * @return UserSvcProvider singleton instance
      */
     public static UserSvcProvider getInstance() {
         if (usp == null) {
@@ -34,7 +33,6 @@ public class UserSvcProvider {
         }
         return usp;
     }
-
     /**
      * Returns the currently logged in user, if any
      *
@@ -66,7 +64,7 @@ public class UserSvcProvider {
     }
 
     /**
-     * Uses attributes passed in to update profile of current user
+     * Updates attributes passed in to update profile of current user
      *
      * @param oldUsername username from current user
      * @param newUsername username from edit text
@@ -159,12 +157,6 @@ public class UserSvcProvider {
         }
     }
 
-    /**
-     * Helper method for SHA1() that converts hash from bytes to hex
-     *
-     * @param data as a byte array to be converted to hex
-     * @return hex of byte array
-     */
     private String convertToHex(byte[] data) {
         StringBuilder buf = new StringBuilder();
         for (byte b : data) {

@@ -27,7 +27,12 @@
     <!-- Strings for app -->
     <string name="title_activity_welcome">WelcomeActivity</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_list">ListActivity</string>
     <string name="error_field_required">This field is required</string>
     <string name="action_cancel">Cancel</string>
     <string name="logout">Log out</string>
+    <string name="prompt_latitude">Latitude</string>
+    <string name="prompt_longitude">Longitude</string>
+    <string name="prompt_water_source_type">Water Source Type</string>
+    <string name="action_submit_water_source_report">Submit</string>
 </resources>
