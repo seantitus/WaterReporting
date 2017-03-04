@@ -76,6 +76,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button viewMap = (Button) findViewById(R.id.view_map);
+        viewMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent launchMap = new Intent(MainActivity.this, MapsActivity.class);
+                startActivity(launchMap);
+            }
+        });
+
         Button submitWaterSourceReport = (Button) findViewById(R.id.submit_source_report);
         submitWaterSourceReport.setOnClickListener(new View.OnClickListener() {
             @Override

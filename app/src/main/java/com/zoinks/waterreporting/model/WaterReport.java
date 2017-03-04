@@ -51,6 +51,10 @@ public abstract class WaterReport {
         return longitude;
     }
 
+    public String getLocation() {
+        return latitude + "," + longitude;
+    }
+
     @Override
     public String toString() {
         return id + " " + author.getUsername() + " " + timestamp + " " + latitude + "," + longitude;
