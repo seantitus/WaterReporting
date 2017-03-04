@@ -8,11 +8,11 @@ package com.zoinks.waterreporting.model;
 
 public class User {
     // required information
-    private String username;
+    private final String username;
     private String password;
     private String firstName;
     private String lastName;
-    private UserType userType;
+    private final UserType userType;
 
     // optional profile information
     private String email;

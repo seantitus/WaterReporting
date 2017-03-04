@@ -11,13 +11,13 @@ import java.util.Date;
 public abstract class WaterReport {
     private static int nextId = 0;
 
-    private int id;
-    private User author;
-    private Date timestamp;
-    private double latitude;
-    private double longitude;
+    private final int id;
+    private final User author;
+    private final Date timestamp;
+    private final double latitude;
+    private final double longitude;
 
-    public WaterReport(Date timestamp, User author, double latitude, double longitude) {
+    WaterReport(Date timestamp, User author, double latitude, double longitude) {
         this.id = nextId++;
         this.author = author;
         this.timestamp = timestamp;

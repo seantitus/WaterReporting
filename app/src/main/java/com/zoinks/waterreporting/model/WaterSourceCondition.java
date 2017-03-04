@@ -9,7 +9,7 @@ package com.zoinks.waterreporting.model;
 public enum WaterSourceCondition {
     WASTE (0), TREATABLE_MUDDY(1), TREATABLE_CLEAR(2), POTABLE (3);
 
-    private int ordinal;
+    private final int ordinal;
 
     WaterSourceCondition(int ordinal) {
         this.ordinal = ordinal;

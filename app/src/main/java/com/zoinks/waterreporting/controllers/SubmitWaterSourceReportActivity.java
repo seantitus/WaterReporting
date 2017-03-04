@@ -24,7 +24,7 @@ import com.zoinks.waterreporting.model.WaterSourceType;
  */
 
 public class SubmitWaterSourceReportActivity extends AppCompatActivity {
-    private WaterReportSvcProvider wsp = WaterReportSvcProvider.getInstance();
+    private final WaterReportSvcProvider wsp = WaterReportSvcProvider.getInstance();
 
     private TextView mLongitudeView;
     private TextView mLatitudeView;

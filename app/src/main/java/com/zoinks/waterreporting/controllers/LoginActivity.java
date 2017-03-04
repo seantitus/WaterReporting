@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
      */
     private UserLoginTask mAuthTask = null;
 
-    private UserSvcProvider usp = UserSvcProvider.getInstance();
+    private final UserSvcProvider usp = UserSvcProvider.getInstance();
 
     // UI references.
     private AutoCompleteTextView mUsernameView;

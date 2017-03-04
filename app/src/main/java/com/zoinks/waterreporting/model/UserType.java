@@ -9,7 +9,7 @@ package com.zoinks.waterreporting.model;
 public enum UserType {
     USER (10), WORKER (20), MANAGER (30), ADMINISTRATOR (40);
 
-    private int privilege;
+    private final int privilege;
 
     UserType(int privilege) {
         this.privilege = privilege;

@@ -21,7 +21,7 @@ import java.util.List;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private WaterReportSvcProvider wrsp = WaterReportSvcProvider.getInstance();
+    private final WaterReportSvcProvider wrsp = WaterReportSvcProvider.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

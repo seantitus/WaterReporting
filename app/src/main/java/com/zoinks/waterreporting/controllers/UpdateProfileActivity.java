@@ -21,8 +21,8 @@ import com.zoinks.waterreporting.model.UserSvcProvider;
  */
 
 public class UpdateProfileActivity extends AppCompatActivity {
-    private UserSvcProvider usp = UserSvcProvider.getInstance();
-    private User currentUser = usp.getCurrentUser();
+    private final UserSvcProvider usp = UserSvcProvider.getInstance();
+    private final User currentUser = usp.getCurrentUser();
 
     private EditText mUsernameView;
     private EditText mFirstNameView;

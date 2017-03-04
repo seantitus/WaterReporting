@@ -18,7 +18,7 @@ import com.zoinks.waterreporting.model.WaterReportSvcProvider;
 import java.util.List;
 
 public class ListActivity extends AppCompatActivity {
-    private WaterReportSvcProvider wrsp = WaterReportSvcProvider.getInstance();
+    private final WaterReportSvcProvider wrsp = WaterReportSvcProvider.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

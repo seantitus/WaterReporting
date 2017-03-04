@@ -21,7 +21,7 @@ import com.zoinks.waterreporting.model.UserType;
  * Created by Nancy on 2/15/17.
  */
 public class MainActivity extends AppCompatActivity {
-    private UserSvcProvider usp = UserSvcProvider.getInstance();
+    private final UserSvcProvider usp = UserSvcProvider.getInstance();
 
     private TextView mUsernameView;
     private TextView mFirstNameView;

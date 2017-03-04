@@ -16,7 +16,7 @@ import com.zoinks.waterreporting.model.UserType;
 import static com.zoinks.waterreporting.R.id.username;
 
 public class RegistrationActivity extends AppCompatActivity {
-    private UserSvcProvider usp = UserSvcProvider.getInstance();
+    private final UserSvcProvider usp = UserSvcProvider.getInstance();
 
     // UI references.
     private EditText mFirstName;

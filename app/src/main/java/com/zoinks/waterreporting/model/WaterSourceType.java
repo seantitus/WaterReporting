@@ -9,7 +9,7 @@ package com.zoinks.waterreporting.model;
 public enum WaterSourceType {
     BOTTLED (0), WELL (1), STREAM (2), LAKE (3), SPRING (4), OTHER (5);
 
-    private int ordinal;
+    private final int ordinal;
 
     WaterSourceType(int ordinal) {
         this.ordinal = ordinal;

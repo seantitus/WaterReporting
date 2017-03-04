@@ -10,8 +10,8 @@ import java.util.Date;
  */
 
 public class WaterSourceReport extends WaterReport {
-    private WaterSourceType type;
-    private WaterSourceCondition condition;
+    private final WaterSourceType type;
+    private final WaterSourceCondition condition;
 
     public WaterSourceReport(Date timestamp, User author, double latitude, double longitude,
                              WaterSourceType type, WaterSourceCondition condition) {

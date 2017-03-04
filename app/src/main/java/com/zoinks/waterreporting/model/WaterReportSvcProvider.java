@@ -16,7 +16,7 @@ public class WaterReportSvcProvider {
     private static WaterReportSvcProvider wrsp;
     private WaterReport currentWaterReport;
     private static final List<WaterReport> list = new ArrayList<>();
-    private static UserSvcProvider usp = UserSvcProvider.getInstance();
+    private static final UserSvcProvider usp = UserSvcProvider.getInstance();
 
     private WaterReportSvcProvider() {
         // hardcoded data for testing the recycler view
