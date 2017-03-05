@@ -23,4 +23,24 @@ public enum WaterSourceType {
     public int getOrdinal() {
         return ordinal;
     }
+
+    @Override
+    public String toString() {
+        switch (this) {
+            case BOTTLED:
+                return "Bottled";
+            case WELL:
+                return "Well";
+            case STREAM:
+                return "Stream";
+            case LAKE:
+                return "Lake";
+            case SPRING:
+                return "Spring";
+            case OTHER:
+                return "Other";
+            default:
+                return "Error";
+        }
+    }
 }

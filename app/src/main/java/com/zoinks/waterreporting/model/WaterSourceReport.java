@@ -20,6 +20,11 @@ public class WaterSourceReport extends WaterReport {
         this.condition = condition;
     }
 
+    @Override
+    public String getSnippet() {
+        return type.toString() + " / " + condition.toString();
+    }
+
     /**
      * Returns the type of water at the water source for this water source report
      *

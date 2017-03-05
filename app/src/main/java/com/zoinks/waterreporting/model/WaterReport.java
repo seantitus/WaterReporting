@@ -25,6 +25,8 @@ public abstract class WaterReport {
         this.longitude = longitude;
     }
 
+    public abstract String getSnippet();
+
     /**
      * Returns the id of the water report
      * No associated setter
@@ -52,7 +54,7 @@ public abstract class WaterReport {
     }
 
     public String getLocation() {
-        return latitude + "," + longitude;
+        return latitude + ", " + longitude;
     }
 
     @Override

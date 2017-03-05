@@ -37,11 +37,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
+     * Adds markers at every location where there is a water report
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -50,7 +46,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         List<WaterReport> reportList = wrsp.getReports();
         for (WaterReport r : reportList) {
             LatLng loc = new LatLng(r.getLatitude(), r.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(loc).title(r.getLocation()).snippet(r.toString()));
+            mMap.addMarker(new MarkerOptions().position(loc).title(r.getLocation()).snippet(r.getSnippet()));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
         }
 
@@ -60,13 +56,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
         private final View myContentsView;
 
-        CustomInfoWindowAdapter(){
+        CustomInfoWindowAdapter() {
             myContentsView = getLayoutInflater().inflate(R.layout.map_marker, null);
         }
 
         @Override
         public View getInfoContents(Marker marker) {
-
             TextView tvTitle = ((TextView)myContentsView.findViewById(R.id.title));
             tvTitle.setText(marker.getTitle());
             TextView tvSnippet = ((TextView)myContentsView.findViewById(R.id.snippet));

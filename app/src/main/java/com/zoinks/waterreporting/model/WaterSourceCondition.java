@@ -15,6 +15,22 @@ public enum WaterSourceCondition {
         this.ordinal = ordinal;
     }
 
+    @Override
+    public String toString() {
+        switch (this) {
+            case WASTE:
+                return "Waste";
+            case TREATABLE_MUDDY:
+                return "Treatable-Muddy";
+            case TREATABLE_CLEAR:
+                return "Treatable-Clear";
+            case POTABLE:
+                return "Potable";
+            default:
+                return "Error";
+        }
+    }
+
     /**
      * Returns the ordinal int associated with the water source condition
      *
