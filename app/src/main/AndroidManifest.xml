@@ -56,6 +56,10 @@
         <activity
             android:name=".controllers.MapsActivity"
             android:label="@string/title_activity_maps" />
+        <activity
+            android:name=".controllers.SubmitWaterQualityReportActivity"
+            android:label="@string/title_activity_submit_water_quality_report"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

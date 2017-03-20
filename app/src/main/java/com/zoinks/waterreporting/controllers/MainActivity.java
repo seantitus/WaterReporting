@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Intent submitReport = new Intent(MainActivity.this,
-                            SubmitWaterSourceReportActivity.class);
+                            SubmitWaterQualityReportActivity.class);
                     startActivity(submitReport);
                 }
             });

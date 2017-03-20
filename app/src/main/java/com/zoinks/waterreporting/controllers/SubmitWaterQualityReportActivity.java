@@ -13,46 +13,34 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.zoinks.waterreporting.R;
+import com.zoinks.waterreporting.model.WaterQualityCondition;
 import com.zoinks.waterreporting.model.WaterReportSvcProvider;
-import com.zoinks.waterreporting.model.WaterSourceCondition;
-import com.zoinks.waterreporting.model.WaterSourceType;
 
-/**
- * Activity for adding a water source report - which can be done by any user
- *
- * Created by stefan on 3/1/17.
- */
-
-public class SubmitWaterSourceReportActivity extends AppCompatActivity {
-    private final WaterReportSvcProvider wsp = WaterReportSvcProvider.getInstance();
+public class SubmitWaterQualityReportActivity extends AppCompatActivity {
+    private final WaterReportSvcProvider wrsp = WaterReportSvcProvider.getInstance();
 
     private TextView mLongitudeView;
     private TextView mLatitudeView;
-    private Spinner mWaterSourceTypeSpinner;
     private Spinner mWaterConditionSpinner;
+    private TextView mVirusPPMView;
+    private TextView mContaminantPPMView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_submit_water_source_report);
+        setContentView(R.layout.activity_submit_water_quality_report);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         mLongitudeView = (EditText) findViewById(R.id.longitude);
         mLatitudeView = (EditText) findViewById(R.id.latitude);
-        mWaterSourceTypeSpinner = (Spinner) findViewById(R.id.type_spinner);
         mWaterConditionSpinner = (Spinner) findViewById(R.id.condition_spinner);
-
-        ArrayAdapter<String> adapter
-                = new ArrayAdapter(this,
-                android.R.layout.simple_spinner_item, WaterSourceType.values());
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mWaterSourceTypeSpinner.setAdapter(adapter);
+        mVirusPPMView = (EditText) findViewById(R.id.virusPPM);
+        mContaminantPPMView = (EditText) findViewById(R.id.contaminantPPM);
 
         ArrayAdapter<String> conditionAdapter
                 = new ArrayAdapter(this,
-                android.R.layout.simple_spinner_item, WaterSourceCondition.values());
+                android.R.layout.simple_spinner_item, WaterQualityCondition.values());
         conditionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mWaterConditionSpinner.setAdapter(conditionAdapter);
 
@@ -80,6 +68,8 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
     private void attemptSubmission() {
         String latString = mLatitudeView.getText().toString();
         String longString = mLongitudeView.getText().toString();
+        String virusString = mVirusPPMView.getText().toString();
+        String contaminantString = mContaminantPPMView.getText().toString();
 
         View focusView = null;
         boolean cancel = false;
@@ -114,16 +104,33 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
             cancel = true;
         }
 
+        // if there was an error, set the error on the view and return
+        if (cancel) {
+            focusView.requestFocus();
+            return;
+        }
+
+        // check that the inputted PPM values are valid
+        double virusPPM = Double.parseDouble(virusString);
+        double contaminantPPM = Double.parseDouble(contaminantString);
+        if (virusPPM < 0 || virusPPM > 1000000) {
+            mVirusPPMView.setError(getString(R.string.invalid_PPM));
+            focusView = mVirusPPMView;
+            cancel = true;
+        } else if (contaminantPPM < 0 || contaminantPPM > 1000000) {
+            mContaminantPPMView.setError(getString(R.string.invalid_PPM));
+            focusView = mContaminantPPMView;
+            cancel = true;
+        }
+
         if (cancel) {
             focusView.requestFocus();
         } else {
-            WaterSourceType waterSourceType
-                    = (WaterSourceType) mWaterSourceTypeSpinner.getSelectedItem();
-            WaterSourceCondition waterSourceCondition
-                    = (WaterSourceCondition) mWaterConditionSpinner.getSelectedItem();
-            wsp.addSourceReport(latitude, longitude, waterSourceType, waterSourceCondition);
+            WaterQualityCondition condition
+                    = (WaterQualityCondition) mWaterConditionSpinner.getSelectedItem();
+            wrsp.addQualityReport(latitude, longitude, condition, virusPPM, contaminantPPM);
 
-            Intent toMain = new Intent(SubmitWaterSourceReportActivity.this, MainActivity.class);
+            Intent toMain = new Intent(SubmitWaterQualityReportActivity.this, MainActivity.class);
             startActivity(toMain);
             finish();
         }

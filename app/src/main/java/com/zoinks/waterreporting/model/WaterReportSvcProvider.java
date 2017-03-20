@@ -20,16 +20,16 @@ public class WaterReportSvcProvider {
 
     private WaterReportSvcProvider() {
         // hardcoded data for testing the recycler view
-        addReport(81, 130.1, WaterSourceType.STREAM, WaterSourceCondition.TREATABLE_MUDDY);
-        addReport(-37, -27, WaterSourceType.WELL, WaterSourceCondition.POTABLE);
-        addReport(8, 31, WaterSourceType.BOTTLED, WaterSourceCondition.POTABLE);
-        addReport(-2, 3, WaterSourceType.OTHER, WaterSourceCondition.TREATABLE_CLEAR);
-        addReport(77, 21, WaterSourceType.LAKE, WaterSourceCondition.TREATABLE_MUDDY);
-        addReport(1, -6.771, WaterSourceType.SPRING, WaterSourceCondition.WASTE);
-        addReport(42, 20.1, WaterSourceType.STREAM, WaterSourceCondition.TREATABLE_MUDDY);
-        addReport(37, 27, WaterSourceType.WELL, WaterSourceCondition.POTABLE);
-        addReport(32.2, -111.2, WaterSourceType.STREAM, WaterSourceCondition.POTABLE);
-        addReport(-23.1, 31.6, WaterSourceType.OTHER, WaterSourceCondition.TREATABLE_CLEAR);
+        addSourceReport(81, 130.1, WaterSourceType.STREAM, WaterSourceCondition.TREATABLE_MUDDY);
+        addSourceReport(-37, -27, WaterSourceType.WELL, WaterSourceCondition.POTABLE);
+        addSourceReport(8, 31, WaterSourceType.BOTTLED, WaterSourceCondition.POTABLE);
+        addSourceReport(-2, 3, WaterSourceType.OTHER, WaterSourceCondition.TREATABLE_CLEAR);
+        addSourceReport(77, 21, WaterSourceType.LAKE, WaterSourceCondition.TREATABLE_MUDDY);
+        addSourceReport(1, -6.771, WaterSourceType.SPRING, WaterSourceCondition.WASTE);
+        addSourceReport(42, 20.1, WaterSourceType.STREAM, WaterSourceCondition.TREATABLE_MUDDY);
+        addSourceReport(37, 27, WaterSourceType.WELL, WaterSourceCondition.POTABLE);
+        addSourceReport(32.2, -111.2, WaterSourceType.STREAM, WaterSourceCondition.POTABLE);
+        addSourceReport(-23.1, 31.6, WaterSourceType.OTHER, WaterSourceCondition.TREATABLE_CLEAR);
     }
 
     /**
@@ -72,14 +72,25 @@ public class WaterReportSvcProvider {
     }
 
     /**
-     * Adds a water report where author is the current user and time is current time
+     * Adds a water source report where author is the current user and time is current time
      */
-    public void addReport(double latitude, double longitude, WaterSourceType type,
-                          WaterSourceCondition condition) {
+    public void addSourceReport(double latitude, double longitude, WaterSourceType type,
+                                WaterSourceCondition condition) {
         Calendar calendar = Calendar.getInstance();
         Date time = calendar.getTime();
         list.add(new WaterSourceReport(time, usp.getCurrentUser(), latitude, longitude, type,
                 condition));
+    }
+
+    /**
+     * Adds a water quality report where author is the current user and time is current time
+     */
+    public void addQualityReport(double latitude, double longitude, WaterQualityCondition condition,
+                                 double virusPPM, double contaminantPPM) {
+        Calendar calendar = Calendar.getInstance();
+        Date time = calendar.getTime();
+        list.add(new WaterQualityReport(time, usp.getCurrentUser(), latitude, longitude, condition,
+                virusPPM, contaminantPPM));
     }
 
     /**
