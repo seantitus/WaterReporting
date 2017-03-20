@@ -54,6 +54,21 @@ public class WaterReportSvcProvider {
     }
 
     /**
+     * Get the list of water quality reports for managers to view
+     *
+     * @return the list of water reports
+     */
+    public List<WaterReport> getQualityReports() {
+        List<WaterReport> qualityList = new ArrayList<>();
+        for (WaterReport wr : list) {
+            if (wr instanceof WaterQualityReport) {
+                qualityList.add(wr);
+            }
+        }
+        return qualityList;
+    }
+
+    /**
      * Gets the water report that was just clicked to be displayed
      *
      * @return the water report that was just clicked to be displayed

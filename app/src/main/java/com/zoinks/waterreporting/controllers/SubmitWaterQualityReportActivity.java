@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,6 +39,16 @@ public class SubmitWaterQualityReportActivity extends AppCompatActivity {
         mWaterConditionSpinner = (Spinner) findViewById(R.id.condition_spinner);
         mVirusPPMView = (EditText) findViewById(R.id.virusPPM);
         mContaminantPPMView = (EditText) findViewById(R.id.contaminantPPM);
+        mContaminantPPMView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+                if (id == EditorInfo.IME_NULL) {
+                    attemptSubmission();
+                    return true;
+                }
+                return false;
+            }
+        });
 
         ArrayAdapter<String> conditionAdapter
                 = new ArrayAdapter(this,

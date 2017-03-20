@@ -81,6 +81,12 @@
             android:id="@+id/view_list" />
 
         <Button
+            android:text="@string/quality_report_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/view_quality_list" />
+
+        <Button
             android:text="@string/view_map"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

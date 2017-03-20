@@ -1,7 +1,5 @@
 package com.zoinks.waterreporting.controllers;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,7 +25,11 @@ public class ListActivity extends AppCompatActivity {
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list);
         assert recyclerView != null;
-        recyclerView.setAdapter(new WaterReportRecyclerViewAdapter(wrsp.getReports()));
+        if (getIntent().getBooleanExtra("ManagerList", false)) {
+            recyclerView.setAdapter(new WaterReportRecyclerViewAdapter(wrsp.getQualityReports()));
+        } else {
+            recyclerView.setAdapter(new WaterReportRecyclerViewAdapter(wrsp.getReports()));
+        }
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
     }
 
@@ -67,15 +69,15 @@ public class ListActivity extends AppCompatActivity {
             holder.mReportView.setText(mReports.get(position).toString());
 
             // set up listener to handle if the user clicks on the list item
-            holder.mView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Context context = v.getContext();
-                    Intent intent = new Intent(context, MainActivity.class);  // TODO: change to new view report activity
-                    wrsp.setCurrentWaterReport(holder.mWaterReport);
-                    context.startActivity(intent);
-                }
-            });
+//            holder.mView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Context context = v.getContext();
+//                    Intent intent = new Intent(context, MainActivity.class);
+//                    wrsp.setCurrentWaterReport(holder.mWaterReport);
+//                    context.startActivity(intent);
+//                }
+//            });
         }
 
         @Override

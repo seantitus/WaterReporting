@@ -35,6 +35,7 @@
 
     <!-- Main screen -->
     <string name="report_list">View Reports</string>
+    <string name="quality_report_list">View Quality Reports</string>
     <string name="new_source_report">Add New Source Report</string>
     <string name="new_quality_report">Add New Quality Report</string>
     <string name="view_map">View Map</string>

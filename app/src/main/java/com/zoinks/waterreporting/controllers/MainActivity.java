@@ -14,6 +14,7 @@ import com.zoinks.waterreporting.R;
 import com.zoinks.waterreporting.model.User;
 import com.zoinks.waterreporting.model.UserSvcProvider;
 import com.zoinks.waterreporting.model.UserType;
+import com.zoinks.waterreporting.model.WaterReportSvcProvider;
 
 /**
  * Main home screen activity - the first thing the user sees after signing in
@@ -22,6 +23,7 @@ import com.zoinks.waterreporting.model.UserType;
  */
 public class MainActivity extends AppCompatActivity {
     private final UserSvcProvider usp = UserSvcProvider.getInstance();
+    private final WaterReportSvcProvider wrsp = WaterReportSvcProvider.getInstance();
 
     private TextView mUsernameView;
     private TextView mFirstNameView;
@@ -72,9 +74,25 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent launchList = new Intent(MainActivity.this, ListActivity.class);
+                launchList.putExtra("ManagerList", false);
                 startActivity(launchList);
             }
         });
+
+        Button viewQualityList = (Button) findViewById(R.id.view_quality_list);
+        if (usp.getCurrentUser().checkPrivilege() == UserType.MANAGER.getPrivilege()) {
+            viewQualityList.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent launchList = new Intent(MainActivity.this, ListActivity.class);
+                    launchList.putExtra("ManagerList", true);
+                    startActivity(launchList);
+                }
+            });
+        } else {
+            viewQualityList.setVisibility(View.GONE);
+        }
+
 
         Button viewMap = (Button) findViewById(R.id.view_map);
         viewMap.setOnClickListener(new View.OnClickListener() {
@@ -97,10 +115,8 @@ public class MainActivity extends AppCompatActivity {
 
         Button submitWaterQualityReport = (Button) findViewById(R.id.submit_quality_report);
         // make sure only workers and managers can add a new report
-        if (usp.getCurrentUser().checkPrivilege() != UserType.MANAGER.getPrivilege()
-                && usp.getCurrentUser().checkPrivilege() != UserType.WORKER.getPrivilege()) {
-            submitWaterQualityReport.setVisibility(View.GONE);
-        } else {
+        if (usp.getCurrentUser().checkPrivilege() == UserType.MANAGER.getPrivilege()
+                || usp.getCurrentUser().checkPrivilege() == UserType.WORKER.getPrivilege()) {
             submitWaterQualityReport.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -109,6 +125,8 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(submitReport);
                 }
             });
+        } else {
+            submitWaterQualityReport.setVisibility(View.GONE);
         }
     }
 
