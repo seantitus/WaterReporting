@@ -35,7 +35,8 @@
 
     <!-- Main screen -->
     <string name="report_list">View Reports</string>
-    <string name="new_report">Add New Report</string>
+    <string name="new_source_report">Add New Source Report</string>
+    <string name="new_quality_report">Add New Quality Report</string>
     <string name="view_map">View Map</string>
 
     <!-- Strings for new water report -->

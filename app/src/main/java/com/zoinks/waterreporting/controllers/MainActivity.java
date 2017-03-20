@@ -89,11 +89,27 @@ public class MainActivity extends AppCompatActivity {
         submitWaterSourceReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent launchList = new Intent(MainActivity.this,
+                Intent submitReport = new Intent(MainActivity.this,
                         SubmitWaterSourceReportActivity.class);
-                startActivity(launchList);
+                startActivity(submitReport);
             }
         });
+
+        Button submitWaterQualityReport = (Button) findViewById(R.id.submit_quality_report);
+        // make sure only workers and managers can add a new report
+        if (usp.getCurrentUser().checkPrivilege() != UserType.MANAGER.getPrivilege()
+                && usp.getCurrentUser().checkPrivilege() != UserType.WORKER.getPrivilege()) {
+            submitWaterQualityReport.setVisibility(View.GONE);
+        } else {
+            submitWaterQualityReport.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent submitReport = new Intent(MainActivity.this,
+                            SubmitWaterSourceReportActivity.class);
+                    startActivity(submitReport);
+                }
+            });
+        }
     }
 
     @Override

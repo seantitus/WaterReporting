@@ -87,10 +87,16 @@
             android:id="@+id/view_map" />
 
         <Button
-            android:text="@string/new_report"
+            android:text="@string/new_source_report"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/submit_source_report"/>
+
+        <Button
+            android:text="@string/new_quality_report"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/submit_quality_report"/>
 
     </LinearLayout>
 
