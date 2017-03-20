@@ -25,6 +25,11 @@ public abstract class WaterReport {
         this.longitude = longitude;
     }
 
+    /**
+     * Creates the snippet to be displayed on the map markers; generally type + condition
+     *
+     * @return the text to be displayed when a map marker is clicked
+     */
     public abstract String getSnippet();
 
     /**
@@ -37,22 +42,29 @@ public abstract class WaterReport {
         return id;
     }
 
-    public User getAuthor() {
-        return author;
-    }
-
-    public Date getTimestamp() {
-        return timestamp;
-    }
-
+    /**
+     * Gets the latitude associated with the water report
+     *
+     * @return the latitude associated with the water report
+     */
     public double getLatitude() {
         return latitude;
     }
 
+    /**
+     * Gets the longitude associated with the water report
+     *
+     * @return the longitude associated with the water report
+     */
     public double getLongitude() {
         return longitude;
     }
 
+    /**
+     * Gets the location (latitude,longitude) associated with the water report
+     *
+     * @return the location (latitude,longitude) associated with the water report
+     */
     public String getLocation() {
         return latitude + ", " + longitude;
     }

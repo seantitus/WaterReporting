@@ -27,12 +27,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
-
 
     /**
      * Manipulates the map once available.
@@ -53,6 +53,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
     }
 
+    /**
+     * Sets what the marker looks like when it is clicked
+     */
     private class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
         private final View myContentsView;
 
@@ -72,7 +75,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         @Override
         public View getInfoWindow(Marker marker) {
-            // TODO Auto-generated method stub
             return null;
         }
     }
