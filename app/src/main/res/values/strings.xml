@@ -39,6 +39,7 @@
     <string name="new_source_report">Add New Source Report</string>
     <string name="new_quality_report">Add New Quality Report</string>
     <string name="view_map">View Map</string>
+    <string name="view_historical_report">View Historical Report</string>
 
     <!-- Strings for new water report -->
     <string name="prompt_latitude">Latitude</string>
@@ -53,4 +54,10 @@
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_submit_water_quality_report">SubmitWaterQualityReportActivity
     </string>
+
+    <!-- Strings for historical reports -->
+    <string name="title_activity_historical_report_options">HistoricalReportOptionsActivity</string>
+    <string name="prompt_year">Year</string>
+    <string name="radio_virus">Virus</string>
+    <string name="radio_contaminant">Contaminant</string>
 </resources>

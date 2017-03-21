@@ -39,6 +39,8 @@ public class SubmitWaterQualityReportActivity extends AppCompatActivity {
         mWaterConditionSpinner = (Spinner) findViewById(R.id.condition_spinner);
         mVirusPPMView = (EditText) findViewById(R.id.virusPPM);
         mContaminantPPMView = (EditText) findViewById(R.id.contaminantPPM);
+
+        // if the user presses enter on the last one, it will submit
         mContaminantPPMView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {

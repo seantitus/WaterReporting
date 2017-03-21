@@ -26,10 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private final WaterReportSvcProvider wrsp = WaterReportSvcProvider.getInstance();
 
     private TextView mUsernameView;
-    private TextView mFirstNameView;
-    private TextView mLastNameView;
     private TextView mPrivilegeView;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +36,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         mUsernameView = (TextView) findViewById(R.id.username_label);
-        mFirstNameView = (TextView) findViewById(R.id.firstname_label);
-        mLastNameView = (TextView) findViewById(R.id.lastname_label);
         mPrivilegeView = (TextView) findViewById(R.id.privilege_label);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -89,10 +84,8 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(launchList);
                 }
             });
-        } else {
-            viewQualityList.setVisibility(View.GONE);
+            viewQualityList.setVisibility(View.VISIBLE);
         }
-
 
         Button viewMap = (Button) findViewById(R.id.view_map);
         viewMap.setOnClickListener(new View.OnClickListener() {
@@ -125,8 +118,21 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(submitReport);
                 }
             });
-        } else {
-            submitWaterQualityReport.setVisibility(View.GONE);
+            submitWaterQualityReport.setVisibility(View.VISIBLE);
+        }
+
+        Button viewHistoricalReport = (Button) findViewById(R.id.view_historical_report);
+        // only managers can generate historical reports
+        if (usp.getCurrentUser().checkPrivilege() == UserType.MANAGER.getPrivilege()) {
+            viewHistoricalReport.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent viewHistorical = new Intent(MainActivity.this,
+                            HistoricalReportOptionsActivity.class);
+                    startActivity(viewHistorical);
+                }
+            });
+            viewHistoricalReport.setVisibility(View.VISIBLE);
         }
     }
 
@@ -139,8 +145,6 @@ public class MainActivity extends AppCompatActivity {
     private void updateLabels() {
         User current = usp.getCurrentUser();
         mUsernameView.setText(String.format("Username: %s", current.getUsername()));
-        mFirstNameView.setText(String.format("First Name: %s", current.getFirstName()));
-        mLastNameView.setText(String.format("Last Name: %s", current.getLastName()));
         UserType privilege = UserType.values()[current.checkPrivilege() / 10 - 1];
         mPrivilegeView.setText(String.format("Privilege: %s", privilege.name()));
     }

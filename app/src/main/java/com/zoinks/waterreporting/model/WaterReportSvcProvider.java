@@ -1,8 +1,11 @@
 package com.zoinks.waterreporting.model;
 
+import com.github.mikephil.charting.data.Entry;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -19,17 +22,21 @@ public class WaterReportSvcProvider {
     private static final UserSvcProvider usp = UserSvcProvider.getInstance();
 
     private WaterReportSvcProvider() {
-        // hardcoded data for testing the recycler view
+        // hardcoded data
         addSourceReport(81, 130.1, WaterSourceType.STREAM, WaterSourceCondition.TREATABLE_MUDDY);
         addSourceReport(-37, -27, WaterSourceType.WELL, WaterSourceCondition.POTABLE);
-        addSourceReport(8, 31, WaterSourceType.BOTTLED, WaterSourceCondition.POTABLE);
         addSourceReport(-2, 3, WaterSourceType.OTHER, WaterSourceCondition.TREATABLE_CLEAR);
         addSourceReport(77, 21, WaterSourceType.LAKE, WaterSourceCondition.TREATABLE_MUDDY);
-        addSourceReport(1, -6.771, WaterSourceType.SPRING, WaterSourceCondition.WASTE);
-        addSourceReport(42, 20.1, WaterSourceType.STREAM, WaterSourceCondition.TREATABLE_MUDDY);
-        addSourceReport(37, 27, WaterSourceType.WELL, WaterSourceCondition.POTABLE);
-        addSourceReport(32.2, -111.2, WaterSourceType.STREAM, WaterSourceCondition.POTABLE);
         addSourceReport(-23.1, 31.6, WaterSourceType.OTHER, WaterSourceCondition.TREATABLE_CLEAR);
+        // dummy reports for testing historical reports
+        for (int month = 0; month < 12; month++) {
+            Date time = new GregorianCalendar(2016, month, 2).getTime();
+            list.add(new WaterQualityReport(time, usp.getCurrentUser(), 0, 0,
+                    WaterQualityCondition.TREATABLE, (month % 4), (month % 4 + 10)));
+        }
+        Date time = new GregorianCalendar(2016, 2, 3).getTime();
+        list.add(new WaterQualityReport(time,  usp.getCurrentUser(), 0, 0,
+                WaterQualityCondition.UNSAFE, 10, 1));
     }
 
     /**
@@ -116,5 +123,45 @@ public class WaterReportSvcProvider {
      */
     public void deleteReport(WaterReport report) {
         list.remove(report);
+    }
+
+    /**
+     * Returns the data for the year requested, 12 data points, one for each month
+     *
+     * @param year the year from which data is requested
+     * @param virus true if the manager wishes to graph virus PPM, false to graph contaminant PPM
+     */
+    public List<Entry> getYearsData(int year, boolean virus) {
+        List<List<WaterQualityReport>> monthArray = new ArrayList<>(12);
+        for (int i = 0; i < 12; i++) {
+            monthArray.add(new ArrayList<WaterQualityReport>());
+        }
+        for (WaterReport wr: list) {
+            if (wr instanceof WaterQualityReport && wr.getYear() == year) {
+                List<WaterQualityReport> month = monthArray.get(wr.getMonth());
+                month.add((WaterQualityReport) wr);
+                monthArray.remove(wr.getMonth());
+                monthArray.add(wr.getMonth(), month);
+            }
+        }
+
+        List<Entry> dataList = new ArrayList<>();
+        for (int month = 0; month < 12; month++) {
+            List<WaterQualityReport> yearList = monthArray.get(month);
+            if (yearList.size() != 0) {  // a month with no data will just not have a plot point
+                double sum = 0;
+                for (WaterQualityReport wr : yearList) {
+                    if (virus) {
+                        sum += wr.getVirusPPM();
+                    } else {
+                        sum += wr.getContaminantPPM();
+                    }
+                }
+                double average = sum / yearList.size();
+                dataList.add(new Entry(month, (float) average));
+            }
+        }
+
+        return dataList;
     }
 }

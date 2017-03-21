@@ -42,20 +42,6 @@
             android:layout_marginTop="38dp" />
 
         <TextView
-            android:id="@+id/firstname_label"
-            android:text="@string/prompt_firstname"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="38dp" />
-
-        <TextView
-            android:id="@+id/lastname_label"
-            android:text="@string/prompt_lastname"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="38dp" />
-
-        <TextView
             android:id="@+id/privilege_label"
             android:text="@string/prompt_privilege"
             android:layout_width="match_parent"
@@ -84,6 +70,7 @@
             android:text="@string/quality_report_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:id="@+id/view_quality_list" />
 
         <Button
@@ -102,7 +89,15 @@
             android:text="@string/new_quality_report"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:id="@+id/submit_quality_report"/>
+
+        <Button
+            android:text="@string/view_historical_report"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:id="@+id/view_historical_report"/>
 
     </LinearLayout>
 

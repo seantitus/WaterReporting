@@ -26,4 +26,27 @@ public class WaterQualityReport extends WaterReport {
     public String getSnippet() {
         return condition.toString() + " / Virus: " + virusPPM + " / Contaminant: " + contaminantPPM;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + " " + condition + " / Virus: " + virusPPM + " / Contaminant: "
+                + contaminantPPM;
+    }
+
+    /**
+     * Gets virus PPM for the report
+     *
+     * @return virus PPM for the report
+     */
+    public double getVirusPPM() {
+        return virusPPM;
+    }
+
+    /**
+     * Gets contaminant PPM for the report
+     * @return contaminant PPM for the report
+     */
+    public double getContaminantPPM() {
+        return contaminantPPM;
+    }
 }

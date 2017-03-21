@@ -7,7 +7,7 @@ package com.zoinks.waterreporting.model;
  */
 
 public enum WaterQualityCondition {
-    SAFE (0), TREATABLE(1), UNSAFE(2);
+    SAFE(0), TREATABLE(1), UNSAFE(2);
 
     private final int ordinal;
 

@@ -1,5 +1,6 @@
 package com.zoinks.waterreporting.model;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -41,6 +42,29 @@ public abstract class WaterReport {
     public int getId() {
         return id;
     }
+
+    /**
+     * Returns the year in which the water report was submitted
+     *
+     * @return year in which the water report was submitted
+     */
+    public int getYear() {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(timestamp);
+        return cal.get(Calendar.YEAR);
+    }
+
+    /**
+     * Returns the month in which the water report was submitted
+     *
+     * @return month in which the water report was submitted
+     */
+    public int getMonth() {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(timestamp);
+        return cal.get(Calendar.MONTH);
+    }
+
 
     /**
      * Gets the latitude associated with the water report

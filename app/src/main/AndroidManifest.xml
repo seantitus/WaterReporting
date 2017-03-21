@@ -59,7 +59,12 @@
         <activity
             android:name=".controllers.SubmitWaterQualityReportActivity"
             android:label="@string/title_activity_submit_water_quality_report"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".controllers.HistoricalReportOptionsActivity"
+            android:label="@string/title_activity_historical_report_options"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".controllers.HistoricalGraphActivity"></activity>
     </application>
 
 </manifest>
