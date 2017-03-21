@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WaterReporting</string>
+    <string name="app_name">water.src</string>
 
     <!-- Strings related to login -->
     <string name="title_activity_login">LoginActivity</string>
@@ -25,6 +25,7 @@
     <string name="profile_update">Update Profile</string>
 
     <!-- Strings for app -->
+    <string name="alt_logo">water.src Logo</string>
     <string name="title_activity_welcome">WelcomeActivity</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_list">ListActivity</string>

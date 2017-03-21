@@ -2,8 +2,6 @@ package com.zoinks.waterreporting.controllers;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -14,7 +12,6 @@ import com.zoinks.waterreporting.R;
 import com.zoinks.waterreporting.model.User;
 import com.zoinks.waterreporting.model.UserSvcProvider;
 import com.zoinks.waterreporting.model.UserType;
-import com.zoinks.waterreporting.model.WaterReportSvcProvider;
 
 /**
  * Main home screen activity - the first thing the user sees after signing in
@@ -23,7 +20,6 @@ import com.zoinks.waterreporting.model.WaterReportSvcProvider;
  */
 public class MainActivity extends AppCompatActivity {
     private final UserSvcProvider usp = UserSvcProvider.getInstance();
-    private final WaterReportSvcProvider wrsp = WaterReportSvcProvider.getInstance();
 
     private TextView mUsernameView;
     private TextView mPrivilegeView;
@@ -37,15 +33,6 @@ public class MainActivity extends AppCompatActivity {
 
         mUsernameView = (TextView) findViewById(R.id.username_label);
         mPrivilegeView = (TextView) findViewById(R.id.privilege_label);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, usp.getCurrentUser().getUsername(), Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         Button logout = (Button) findViewById(R.id.logout_button);
         logout.setOnClickListener(new View.OnClickListener() {

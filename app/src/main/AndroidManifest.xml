@@ -11,13 +11,18 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
         <activity
             android:name=".controllers.WelcomeActivity"
-            android:label="@string/title_activity_welcome"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,46 +30,52 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".controllers.LoginActivity"
             android:label="@string/title_activity_login" />
+
         <activity
             android:name=".controllers.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".controllers.RegistrationActivity"
             android:label="@string/title_activity_registration"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".controllers.UpdateProfileActivity"
             android:label="UpdateProfileActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".controllers.ListActivity"
             android:label="@string/title_activity_list"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".controllers.SubmitWaterSourceReportActivity"
             android:label="SubmitWaterSourceReportActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
-
         <activity
             android:name=".controllers.MapsActivity"
             android:label="@string/title_activity_maps" />
+
         <activity
             android:name=".controllers.SubmitWaterQualityReportActivity"
             android:label="@string/title_activity_submit_water_quality_report"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".controllers.HistoricalReportOptionsActivity"
             android:label="@string/title_activity_historical_report_options"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".controllers.HistoricalGraphActivity"></activity>
+
+        <activity
+            android:name=".controllers.HistoricalGraphActivity" />
     </application>
 
 </manifest>
