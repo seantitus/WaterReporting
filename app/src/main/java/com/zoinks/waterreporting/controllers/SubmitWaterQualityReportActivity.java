@@ -52,11 +52,10 @@ public class SubmitWaterQualityReportActivity extends AppCompatActivity {
             }
         });
 
-        ArrayAdapter<String> conditionAdapter
-                = new ArrayAdapter(this,
-                android.R.layout.simple_spinner_item, WaterQualityCondition.values());
-        conditionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mWaterConditionSpinner.setAdapter(conditionAdapter);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, WaterQualityCondition.getValues());
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mWaterConditionSpinner.setAdapter(adapter);
 
         Button mSubmitButton = (Button) findViewById(R.id.submit_report_button);
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
@@ -141,7 +140,7 @@ public class SubmitWaterQualityReportActivity extends AppCompatActivity {
             focusView.requestFocus();
         } else {
             WaterQualityCondition condition
-                    = (WaterQualityCondition) mWaterConditionSpinner.getSelectedItem();
+                    = WaterQualityCondition.get(mWaterConditionSpinner.getSelectedItemPosition());
             wrsp.addQualityReport(latitude, longitude, condition, virusPPM, contaminantPPM);
 
             Intent toMain = new Intent(SubmitWaterQualityReportActivity.this, MainActivity.class);

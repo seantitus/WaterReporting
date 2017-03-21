@@ -160,12 +160,12 @@ public class UserSvcProvider {
     private String convertToHex(byte[] data) {
         StringBuilder buf = new StringBuilder();
         for (byte b : data) {
-            int halfbyte = (b >>> 4) & 0x0F;
-            int two_halfs = 0;
+            int halfByte = (b >>> 4) & 0x0F;
+            int two_halves = 0;
             do {
-                buf.append((0 <= halfbyte) && (halfbyte <= 9) ? (char) ('0' + halfbyte) : (char) ('a' + (halfbyte - 10)));
-                halfbyte = b & 0x0F;
-            } while (two_halfs++ < 1);
+                buf.append((0 <= halfByte) && (halfByte <= 9) ? (char) ('0' + halfByte) : (char) ('a' + (halfByte - 10)));
+                halfByte = b & 0x0F;
+            } while (two_halves++ < 1);
         }
         return buf.toString();
     }

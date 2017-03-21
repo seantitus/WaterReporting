@@ -44,15 +44,13 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
         mWaterSourceTypeSpinner = (Spinner) findViewById(R.id.type_spinner);
         mWaterConditionSpinner = (Spinner) findViewById(R.id.condition_spinner);
 
-        ArrayAdapter<String> adapter
-                = new ArrayAdapter(this,
-                android.R.layout.simple_spinner_item, WaterSourceType.values());
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mWaterSourceTypeSpinner.setAdapter(adapter);
+        ArrayAdapter<String> typeAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, WaterSourceType.getValues());
+        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mWaterSourceTypeSpinner.setAdapter(typeAdapter);
 
-        ArrayAdapter<String> conditionAdapter
-                = new ArrayAdapter(this,
-                android.R.layout.simple_spinner_item, WaterSourceCondition.values());
+        ArrayAdapter<String> conditionAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, WaterSourceCondition.getValues());
         conditionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mWaterConditionSpinner.setAdapter(conditionAdapter);
 
@@ -118,9 +116,9 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
             focusView.requestFocus();
         } else {
             WaterSourceType waterSourceType
-                    = (WaterSourceType) mWaterSourceTypeSpinner.getSelectedItem();
+                    = WaterSourceType.get(mWaterSourceTypeSpinner.getSelectedItemPosition());
             WaterSourceCondition waterSourceCondition
-                    = (WaterSourceCondition) mWaterConditionSpinner.getSelectedItem();
+                    = WaterSourceCondition.get(mWaterConditionSpinner.getSelectedItemPosition());
             wsp.addSourceReport(latitude, longitude, waterSourceType, waterSourceCondition);
 
             Intent toMain = new Intent(SubmitWaterSourceReportActivity.this, MainActivity.class);

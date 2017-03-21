@@ -19,8 +19,6 @@ import com.zoinks.waterreporting.model.WaterReportSvcProvider;
 import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
-
-    private GoogleMap mMap;
     private final WaterReportSvcProvider wrsp = WaterReportSvcProvider.getInstance();
 
     @Override
@@ -41,16 +39,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-
         List<WaterReport> reportList = wrsp.getReports();
         for (WaterReport r : reportList) {
             LatLng loc = new LatLng(r.getLatitude(), r.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(loc).title(r.getLocation()).snippet(r.getSnippet()));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
+            googleMap.addMarker(new MarkerOptions().position(loc).title(r.getLocation()).snippet(r.getSnippet()));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
         }
 
-        mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
+        googleMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
     }
 
     /**

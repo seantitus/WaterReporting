@@ -6,8 +6,8 @@
     <string name="title_activity_registration">RegistrationActivity</string>
     <string name="prompt_username">Username</string>
     <string name="prompt_password">Password</string>
-    <string name="prompt_firstname">First Name</string>
-    <string name="prompt_lastname">Last Name</string>
+    <string name="prompt_first_name">First Name</string>
+    <string name="prompt_last_name">Last Name</string>
     <string name="prompt_privilege">User Privilege Level</string>
     <string name="action_sign_in">Sign in</string>
     <string name="action_sign_in_short">Sign in</string>
@@ -26,7 +26,6 @@
 
     <!-- Strings for app -->
     <string name="alt_logo">water.src Logo</string>
-    <string name="title_activity_welcome">WelcomeActivity</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_list">ListActivity</string>
     <string name="error_field_required">This field is required</string>

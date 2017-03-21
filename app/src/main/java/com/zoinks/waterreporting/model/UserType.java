@@ -1,5 +1,8 @@
 package com.zoinks.waterreporting.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * The four user types and their associated privilege levels.
  *
@@ -22,5 +25,40 @@ public enum UserType {
      */
     public int getPrivilege() {
         return this.privilege;
+    }
+
+    /**
+     * Gets a list of the string values of the user types (for spinner population)
+     *
+     * @return a list of the string values of the user types (for spinner population)
+     */
+    public static List<String> getValues() {
+        List<String> list = new ArrayList<>();
+        list.add("USER");
+        list.add("WORKER");
+        list.add("MANAGER");
+        list.add("ADMINISTRATOR");
+        return list;
+    }
+
+    /**
+     * Gets the UserType associated with a certain privilege level
+     *
+     * @param privilege the privilege level for which to get the UserType
+     * @return the UserType associated with a certain privilege level
+     */
+    public static UserType get(int privilege) {
+        switch (privilege) {
+            case 10:
+                return USER;
+            case 20:
+                return WORKER;
+            case 30:
+                return MANAGER;
+            case 40:
+                return ADMINISTRATOR;
+            default:
+                return null;
+        }
     }
 }

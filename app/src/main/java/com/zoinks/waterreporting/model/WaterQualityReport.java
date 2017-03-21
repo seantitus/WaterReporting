@@ -10,9 +10,9 @@ import java.util.Date;
  */
 
 public class WaterQualityReport extends WaterReport {
-    private WaterQualityCondition condition;
-    private double virusPPM;
-    private double contaminantPPM;
+    private final WaterQualityCondition condition;
+    private final double virusPPM;
+    private final double contaminantPPM;
 
     public WaterQualityReport(Date timestamp, User author, double latitude, double longitude,
                               WaterQualityCondition cond, double virusPPM, double contaminantPPM) {

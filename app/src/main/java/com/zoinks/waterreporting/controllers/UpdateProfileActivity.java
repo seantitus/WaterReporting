@@ -38,8 +38,8 @@ public class UpdateProfileActivity extends AppCompatActivity {
         setContentView(R.layout.update_profile);
 
         mUsernameView = (EditText) findViewById(R.id.username);
-        mFirstNameView = (EditText) findViewById(R.id.firstname);
-        mLastNameView = (EditText) findViewById(R.id.lastname);
+        mFirstNameView = (EditText) findViewById(R.id.first_name);
+        mLastNameView = (EditText) findViewById(R.id.last_name);
         mPasswordView = (EditText) findViewById(R.id.password);
         mEmailView = (EditText) findViewById(R.id.email);
         mAddressView = (EditText) findViewById(R.id.address);
@@ -66,7 +66,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
         Button mRegisterButton = (Button) findViewById(R.id.submit_profile_update);
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 attemptUpdate();
             }
         });
@@ -81,8 +81,6 @@ public class UpdateProfileActivity extends AppCompatActivity {
     }
 
     private void attemptUpdate() {
-        User current = usp.getCurrentUser();
-
         View focusView = null;
         boolean error = false;
 
@@ -121,8 +119,8 @@ public class UpdateProfileActivity extends AppCompatActivity {
         if (error) {
             focusView.requestFocus();
         } else {
-            if (usp.update(current.getUsername(), username, firstName, lastName, password, email,
-                    address, phone)) {
+            if (usp.update(currentUser.getUsername(), username, firstName, lastName, password,
+                    email, address, phone)) {
                 finish();
             } else {
                 mUsernameView.setError(getString(R.string.error_username_taken));

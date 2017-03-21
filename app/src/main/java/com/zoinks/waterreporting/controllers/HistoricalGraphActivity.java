@@ -26,10 +26,10 @@ public class HistoricalGraphActivity extends AppCompatActivity {
         int year = getIntent().getIntExtra("Year", 0);
         boolean virus = getIntent().getBooleanExtra("Virus", true);
         List<Entry> entries = wrsp.getYearsData(year, virus);
-        LineDataSet dataset = new LineDataSet(entries, year + "");
+        LineDataSet dataSet = new LineDataSet(entries, year + "");
 
-        LineData data = new LineData(dataset);
-        dataset.setColors(ColorTemplate.COLORFUL_COLORS);
+        LineData data = new LineData(dataSet);
+        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
 
         // configure chart
         if (virus) {

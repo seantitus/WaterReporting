@@ -30,14 +30,15 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
-        mFirstName = (EditText) findViewById(R.id.firstname);
-        mLastName = (EditText) findViewById(R.id.lastname);
+        mFirstName = (EditText) findViewById(R.id.first_name);
+        mLastName = (EditText) findViewById(R.id.last_name);
         mUsernameView = (AutoCompleteTextView) findViewById(username);
         mPasswordView = (EditText) findViewById(R.id.password);
         mPrivilegeSpinner = (Spinner) findViewById(R.id.spinner);
 
         // populate spinner with valid user privilege levels
-        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, UserType.values());
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,
+                UserType.getValues());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mPrivilegeSpinner.setAdapter(adapter);
 
@@ -63,7 +64,7 @@ public class RegistrationActivity extends AppCompatActivity {
         String lastName = mLastName.getText().toString();
         String username = mUsernameView.getText().toString();
         String password = mPasswordView.getText().toString();
-        UserType privilege = (UserType) mPrivilegeSpinner.getSelectedItem();
+        UserType privilege = UserType.get((mPrivilegeSpinner.getSelectedItemPosition() + 1) * 10);
 
         if (usp.register(firstName, lastName, username, password, privilege)) {
             finish();

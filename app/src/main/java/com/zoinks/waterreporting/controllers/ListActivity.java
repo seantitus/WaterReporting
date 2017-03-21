@@ -90,13 +90,11 @@ public class ListActivity extends AppCompatActivity {
          * about the binding b/t the model element (a WaterReport) and the two TextViews in the view
          */
         public class ViewHolder extends RecyclerView.ViewHolder {
-            public final View mView;
             public final TextView mReportView;
             public WaterReport mWaterReport;
 
             public ViewHolder(View view) {
                 super(view);
-                mView = view;
                 mReportView = (TextView) view.findViewById(R.id.report);
             }
 
