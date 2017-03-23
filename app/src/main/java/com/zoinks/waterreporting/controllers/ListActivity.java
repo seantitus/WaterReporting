@@ -28,7 +28,7 @@ public class ListActivity extends AppCompatActivity {
         if (getIntent().getBooleanExtra("ManagerList", false)) {
             recyclerView.setAdapter(new WaterReportRecyclerViewAdapter(wrsp.getQualityReports()));
         } else {
-            recyclerView.setAdapter(new WaterReportRecyclerViewAdapter(wrsp.getReports()));
+            recyclerView.setAdapter(new WaterReportRecyclerViewAdapter(wrsp.getSourceReports()));
         }
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
     }
@@ -36,7 +36,7 @@ public class ListActivity extends AppCompatActivity {
     /**
      * Custom adapter taking water reports and mapping their toString to a text field
      */
-    public class WaterReportRecyclerViewAdapter
+    class WaterReportRecyclerViewAdapter
             extends RecyclerView.Adapter<WaterReportRecyclerViewAdapter.ViewHolder> {
 
         /**
@@ -49,7 +49,7 @@ public class ListActivity extends AppCompatActivity {
          *
          * @param reportList the list of WaterReports to be displayed in the recycler view
          */
-        public WaterReportRecyclerViewAdapter(List<WaterReport> reportList) {
+        WaterReportRecyclerViewAdapter(List<WaterReport> reportList) {
             mReports = reportList;
         }
 
@@ -89,11 +89,11 @@ public class ListActivity extends AppCompatActivity {
          * This inner class represents a ViewHolder which provides us a way to cache information
          * about the binding b/t the model element (a WaterReport) and the two TextViews in the view
          */
-        public class ViewHolder extends RecyclerView.ViewHolder {
-            public final TextView mReportView;
-            public WaterReport mWaterReport;
+        class ViewHolder extends RecyclerView.ViewHolder {
+            final TextView mReportView;
+            WaterReport mWaterReport;
 
-            public ViewHolder(View view) {
+            ViewHolder(View view) {
                 super(view);
                 mReportView = (TextView) view.findViewById(R.id.report);
             }

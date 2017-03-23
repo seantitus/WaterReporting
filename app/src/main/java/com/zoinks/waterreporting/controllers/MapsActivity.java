@@ -3,6 +3,7 @@ package com.zoinks.waterreporting.controllers;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -56,7 +57,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         private final View myContentsView;
 
         CustomInfoWindowAdapter() {
-            myContentsView = getLayoutInflater().inflate(R.layout.map_marker, null);
+            myContentsView = getLayoutInflater().inflate(R.layout.map_marker,
+                    (ViewGroup) findViewById(R.id.map), false);
         }
 
         @Override
