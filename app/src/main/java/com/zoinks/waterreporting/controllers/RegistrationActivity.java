@@ -10,13 +10,13 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.zoinks.waterreporting.R;
-import com.zoinks.waterreporting.model.UserSvcProvider;
+import com.zoinks.waterreporting.model.Facade;
 import com.zoinks.waterreporting.model.UserType;
 
 import static com.zoinks.waterreporting.R.id.username;
 
 public class RegistrationActivity extends AppCompatActivity {
-    private final UserSvcProvider usp = UserSvcProvider.getInstance();
+    private final Facade facade = Facade.getInstance();
 
     // UI references.
     private EditText mFirstName;
@@ -37,7 +37,7 @@ public class RegistrationActivity extends AppCompatActivity {
         mPrivilegeSpinner = (Spinner) findViewById(R.id.spinner);
 
         // populate spinner with valid user privilege levels
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,
                 UserType.getValues());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mPrivilegeSpinner.setAdapter(adapter);
@@ -66,7 +66,7 @@ public class RegistrationActivity extends AppCompatActivity {
         String password = mPasswordView.getText().toString();
         UserType privilege = UserType.get((mPrivilegeSpinner.getSelectedItemPosition() + 1) * 10);
 
-        if (usp.register(firstName, lastName, username, password, privilege)) {
+        if (facade.registerUser(firstName, lastName, username, password, privilege)) {
             finish();
         } else {
             mUsernameView.setError(getString(R.string.error_username_taken));
