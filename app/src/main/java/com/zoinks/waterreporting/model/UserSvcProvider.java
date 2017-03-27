@@ -96,7 +96,7 @@ class UserSvcProvider {
     }
 
     /**
-     * Attempts login
+     * Attempts login; data is checked in the UI for null/etc before being passed here
      *
      * @param username username of profile trying to login as
      * @param password to be checked for a match
@@ -104,6 +104,10 @@ class UserSvcProvider {
      *         False if password incorrect, user does not exist, or user blocked
      */
     boolean login(String username, String password) {
+        if (username == null || password == null) {  // required bc null is a valid key in hashmaps
+            return false;
+        }
+
         if (USERS.containsKey(username)) {
             User user = USERS.get(username);
             if (user.getPassword().equals(SHA1(password))) {  //TODO: and if user is not banned, etc

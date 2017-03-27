@@ -15,8 +15,8 @@ import java.util.List;
  */
 
 class WaterReportSvcProvider {
-    private final List<WaterSourceReport> sourceList = new ArrayList<>();
-    private final List<WaterQualityReport> qualityList = new ArrayList<>();
+    private final List<WaterSourceReport> SOURCE_LIST = new ArrayList<>();
+    private final List<WaterQualityReport> QUALITY_LIST = new ArrayList<>();
 
     /**
      * Get the list of water reports
@@ -25,8 +25,8 @@ class WaterReportSvcProvider {
      */
     List<WaterReport> getReports() {
         List<WaterReport> list = new ArrayList<>();
-        list.addAll(sourceList);
-        list.addAll(qualityList);
+        list.addAll(SOURCE_LIST);
+        list.addAll(QUALITY_LIST);
         return list;
     }
 
@@ -36,7 +36,7 @@ class WaterReportSvcProvider {
      * @return the list of water source reports
      */
     List<WaterReport> getSourceReports() {
-        return new ArrayList<WaterReport>(sourceList);
+        return new ArrayList<WaterReport>(SOURCE_LIST);
     }
 
     /**
@@ -45,7 +45,7 @@ class WaterReportSvcProvider {
      * @return the list of water quality reports
      */
     List<WaterReport> getQualityReports() {
-        return new ArrayList<WaterReport>(qualityList);
+        return new ArrayList<WaterReport>(QUALITY_LIST);
     }
 
     /**
@@ -61,7 +61,7 @@ class WaterReportSvcProvider {
                                 WaterSourceCondition condition, User user) {
         Calendar calendar = Calendar.getInstance();
         Date time = calendar.getTime();
-        sourceList.add(new WaterSourceReport(time, user.getUsername(), latitude, longitude, type,
+        SOURCE_LIST.add(new WaterSourceReport(time, user.getUsername(), latitude, longitude, type,
                 condition));
     }
 
@@ -79,7 +79,7 @@ class WaterReportSvcProvider {
                                  double virusPPM, double contaminantPPM, User user) {
         Calendar calendar = Calendar.getInstance();
         Date time = calendar.getTime();
-        qualityList.add(new WaterQualityReport(time, user.getUsername(), latitude, longitude,
+        QUALITY_LIST.add(new WaterQualityReport(time, user.getUsername(), latitude, longitude,
                 condition, virusPPM, contaminantPPM));
     }
 
@@ -99,7 +99,7 @@ class WaterReportSvcProvider {
         }
 
         // add water reports to the appropriate bucket
-        for (WaterQualityReport wr: qualityList) {
+        for (WaterQualityReport wr: QUALITY_LIST) {
             if (wr.getYear() == year && wr.getLatitude() == latitude && wr.getLongitude() == longitude) {
                 List<WaterQualityReport> month = monthArray.get(wr.getMonth());
                 month.add(wr);
