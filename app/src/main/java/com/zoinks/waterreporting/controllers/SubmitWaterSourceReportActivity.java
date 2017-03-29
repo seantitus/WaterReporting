@@ -13,7 +13,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.zoinks.waterreporting.R;
-import com.zoinks.waterreporting.model.Facade;
+import com.zoinks.waterreporting.model.WaterReportSvcProvider;
 import com.zoinks.waterreporting.model.WaterSourceCondition;
 import com.zoinks.waterreporting.model.WaterSourceType;
 
@@ -24,7 +24,7 @@ import com.zoinks.waterreporting.model.WaterSourceType;
  */
 
 public class SubmitWaterSourceReportActivity extends AppCompatActivity {
-    private final Facade facade = Facade.getInstance();
+    private final WaterReportSvcProvider wsp = WaterReportSvcProvider.getInstance();
 
     private TextView mLongitudeView;
     private TextView mLatitudeView;
@@ -119,7 +119,7 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
                     = WaterSourceType.get(mWaterSourceTypeSpinner.getSelectedItemPosition());
             WaterSourceCondition waterSourceCondition
                     = WaterSourceCondition.get(mWaterConditionSpinner.getSelectedItemPosition());
-            facade.addSourceReport(latitude, longitude, waterSourceType, waterSourceCondition);
+            wsp.addSourceReport(latitude, longitude, waterSourceType, waterSourceCondition);
 
             Intent toMain = new Intent(SubmitWaterSourceReportActivity.this, MainActivity.class);
             startActivity(toMain);

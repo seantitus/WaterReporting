@@ -14,13 +14,13 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.zoinks.waterreporting.R;
-import com.zoinks.waterreporting.model.Facade;
 import com.zoinks.waterreporting.model.WaterReport;
+import com.zoinks.waterreporting.model.WaterReportSvcProvider;
 
 import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
-    private final Facade facade = Facade.getInstance();
+    private final WaterReportSvcProvider wrsp = WaterReportSvcProvider.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        List<WaterReport> reportList = facade.getReports();
+        List<WaterReport> reportList = wrsp.getReports();
         for (WaterReport r : reportList) {
             LatLng loc = new LatLng(r.getLatitude(), r.getLongitude());
             googleMap.addMarker(new MarkerOptions().position(loc).title(r.getLocation()).snippet(r.getSnippet()));

@@ -15,11 +15,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.zoinks.waterreporting.R;
-import com.zoinks.waterreporting.model.Facade;
 import com.zoinks.waterreporting.model.WaterQualityCondition;
+import com.zoinks.waterreporting.model.WaterReportSvcProvider;
 
 public class SubmitWaterQualityReportActivity extends AppCompatActivity {
-    private final Facade facade = Facade.getInstance();
+    private final WaterReportSvcProvider wrsp = WaterReportSvcProvider.getInstance();
 
     private TextView mLongitudeView;
     private TextView mLatitudeView;
@@ -141,7 +141,7 @@ public class SubmitWaterQualityReportActivity extends AppCompatActivity {
         } else {
             WaterQualityCondition condition
                     = WaterQualityCondition.get(mWaterConditionSpinner.getSelectedItemPosition());
-            facade.addQualityReport(latitude, longitude, condition, virusPPM, contaminantPPM);
+            wrsp.addQualityReport(latitude, longitude, condition, virusPPM, contaminantPPM);
 
             Intent toMain = new Intent(SubmitWaterQualityReportActivity.this, MainActivity.class);
             startActivity(toMain);

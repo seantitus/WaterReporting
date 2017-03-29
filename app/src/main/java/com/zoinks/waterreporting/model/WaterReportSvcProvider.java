@@ -5,28 +5,58 @@ import com.github.mikephil.charting.data.Entry;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
  * Class to manage information and services related to water reports
- * Has package visibility because it should only be accessed from the facade, not directly
+ * Implements Singleton design pattern
  *
  * Created by Nancy on 03/01/2017.
  */
 
-class WaterReportSvcProvider {
-    private final List<WaterSourceReport> SOURCE_LIST = new ArrayList<>();
-    private final List<WaterQualityReport> QUALITY_LIST = new ArrayList<>();
+public class WaterReportSvcProvider {
+    private static WaterReportSvcProvider wrsp;
+    private WaterReport currentWaterReport;
+    private static final List<WaterReport> list = new ArrayList<>();
+    private static final UserSvcProvider usp = UserSvcProvider.getInstance();
+
+    private WaterReportSvcProvider() {
+        // hardcoded data
+        addSourceReport(81, 130.1, WaterSourceType.STREAM, WaterSourceCondition.TREATABLE_MUDDY);
+        addSourceReport(-37, -27, WaterSourceType.WELL, WaterSourceCondition.POTABLE);
+        addSourceReport(-2, 3, WaterSourceType.OTHER, WaterSourceCondition.TREATABLE_CLEAR);
+        addSourceReport(77, 21, WaterSourceType.LAKE, WaterSourceCondition.TREATABLE_MUDDY);
+        addSourceReport(-23.1, 31.6, WaterSourceType.OTHER, WaterSourceCondition.TREATABLE_CLEAR);
+        // dummy reports for testing historical reports
+        for (int month = 0; month < 12; month++) {
+            Date time = new GregorianCalendar(2016, month, 2).getTime();
+            list.add(new WaterQualityReport(time, usp.getCurrentUser(), 0, 0,
+                    WaterQualityCondition.TREATABLE, (month % 4), (month % 4 + 10)));
+        }
+        Date time = new GregorianCalendar(2016, 2, 3).getTime();
+        list.add(new WaterQualityReport(time,  usp.getCurrentUser(), 0, 0,
+                WaterQualityCondition.UNSAFE, 10, 1));
+    }
+
+    /**
+     * Gets the instance of WaterReportSvcProvider (should only be one - singleton design pattern)
+     *
+     * @return the instance of WaterReportSvcProvider
+     */
+    public static WaterReportSvcProvider getInstance() {
+        if (wrsp == null) {
+            wrsp = new WaterReportSvcProvider();
+        }
+        return wrsp;
+    }
 
     /**
      * Get the list of water reports
      *
      * @return the list of water reports
      */
-    List<WaterReport> getReports() {
-        List<WaterReport> list = new ArrayList<>();
-        list.addAll(SOURCE_LIST);
-        list.addAll(QUALITY_LIST);
+    public List<WaterReport> getReports() {
         return list;
     }
 
@@ -35,8 +65,14 @@ class WaterReportSvcProvider {
      *
      * @return the list of water source reports
      */
-    List<WaterReport> getSourceReports() {
-        return new ArrayList<WaterReport>(SOURCE_LIST);
+    public List<WaterReport> getSourceReports() {
+        List<WaterReport> sourceList = new ArrayList<>();
+        for (WaterReport wr : list) {
+            if (wr instanceof WaterSourceReport) {
+                sourceList.add(wr);
+            }
+        }
+        return sourceList;
     }
 
     /**
@@ -44,71 +80,86 @@ class WaterReportSvcProvider {
      *
      * @return the list of water quality reports
      */
-    List<WaterReport> getQualityReports() {
-        return new ArrayList<WaterReport>(QUALITY_LIST);
+    public List<WaterReport> getQualityReports() {
+        List<WaterReport> qualityList = new ArrayList<>();
+        for (WaterReport wr : list) {
+            if (wr instanceof WaterQualityReport) {
+                qualityList.add(wr);
+            }
+        }
+        return qualityList;
     }
 
     /**
-     * Adds a water source report where time is current time
+     * Gets the water report that was just clicked to be displayed
      *
-     * @param latitude latitude of the water report
-     * @param longitude longitude of the water report
-     * @param type type of water at the water source
-     * @param condition condition of water at the water source
-     * @param user author of the water report
+     * @return the water report that was just clicked to be displayed
      */
-    void addSourceReport(double latitude, double longitude, WaterSourceType type,
-                                WaterSourceCondition condition, User user) {
+    public WaterReport getCurrentWaterReport() {
+        return currentWaterReport;
+    }
+
+    /**
+     * Sets the water report that the user just clicked on
+     *
+     * @param currentWaterReport the report to be displayed
+     */
+    public void setCurrentWaterReport(WaterReport currentWaterReport) {
+        this.currentWaterReport = currentWaterReport;
+    }
+
+    /**
+     * Adds a water source report where author is the current user and time is current time
+     */
+    public void addSourceReport(double latitude, double longitude, WaterSourceType type,
+                                WaterSourceCondition condition) {
         Calendar calendar = Calendar.getInstance();
         Date time = calendar.getTime();
-        SOURCE_LIST.add(new WaterSourceReport(time, user.getUsername(), latitude, longitude, type,
+        list.add(new WaterSourceReport(time, usp.getCurrentUser(), latitude, longitude, type,
                 condition));
     }
 
     /**
-     * Adds a water quality report where time is current time
-     *
-     * @param latitude latitude of the water report
-     * @param longitude longitude of the water report
-     * @param condition condition of water at the water source
-     * @param virusPPM virus concentration measured in PPM at the water source
-     * @param contaminantPPM contaminant concentration measured in PPM at the water source
-     * @param user author of the water report
+     * Adds a water quality report where author is the current user and time is current time
      */
-    void addQualityReport(double latitude, double longitude, WaterQualityCondition condition,
-                                 double virusPPM, double contaminantPPM, User user) {
+    public void addQualityReport(double latitude, double longitude, WaterQualityCondition condition,
+                                 double virusPPM, double contaminantPPM) {
         Calendar calendar = Calendar.getInstance();
         Date time = calendar.getTime();
-        QUALITY_LIST.add(new WaterQualityReport(time, user.getUsername(), latitude, longitude,
-                condition, virusPPM, contaminantPPM));
+        list.add(new WaterQualityReport(time, usp.getCurrentUser(), latitude, longitude, condition,
+                virusPPM, contaminantPPM));
     }
 
     /**
-     * Returns the data for the year requested, 12 points, one for each month for the location requested
+     * Removes the given report - only managers can do this
+     * TODO: write to security log with current timestamp and current user
+     *
+     * @param report to be removed
+     */
+    public void deleteReport(WaterReport report) {
+        list.remove(report);
+    }
+
+    /**
+     * Returns the data for the year requested, 12 data points, one for each month
      *
      * @param year the year from which data is requested
-     * @param latitude the latitude of the reports to get
-     * @param longitude the longitude of the reports to get
      * @param virus true if the manager wishes to graph virus PPM, false to graph contaminant PPM
      */
-    List<Entry> getYearsData(int year, double latitude, double longitude, boolean virus) {
-        // set up array of linked lists, where each linked list is one month's worth of reports
+    public List<Entry> getYearsData(int year, boolean virus) {
         List<List<WaterQualityReport>> monthArray = new ArrayList<>(12);
         for (int i = 0; i < 12; i++) {
             monthArray.add(new ArrayList<WaterQualityReport>());
         }
-
-        // add water reports to the appropriate bucket
-        for (WaterQualityReport wr: QUALITY_LIST) {
-            if (wr.getYear() == year && wr.getLatitude() == latitude && wr.getLongitude() == longitude) {
+        for (WaterReport wr: list) {
+            if (wr instanceof WaterQualityReport && wr.getYear() == year) {
                 List<WaterQualityReport> month = monthArray.get(wr.getMonth());
-                month.add(wr);
+                month.add((WaterQualityReport) wr);
                 monthArray.remove(wr.getMonth());
                 monthArray.add(wr.getMonth(), month);
             }
         }
 
-        // in each bucket, average the ppm for the reports for that month
         List<Entry> dataList = new ArrayList<>();
         for (int month = 0; month < 12; month++) {
             List<WaterQualityReport> yearList = monthArray.get(month);
