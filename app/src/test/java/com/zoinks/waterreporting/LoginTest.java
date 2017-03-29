@@ -1,11 +1,11 @@
 package com.zoinks.waterreporting;
 
-import com.zoinks.waterreporting.model.UserSvcProvider;
+import com.zoinks.waterreporting.model.Facade;
 import com.zoinks.waterreporting.model.UserType;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * JUnit test for login
@@ -13,24 +13,41 @@ import static org.junit.Assert.*;
  */
 
 public class LoginTest {
+    @Test
+    public void nullUsername() {
+        Facade facade = Facade.getInstance();
+        assertEquals(facade.login(null, "irrelevantPassword"), false);
+    }
+
+    @Test
+    public void nullPassword() {
+        Facade facade = Facade.getInstance();
+        assertEquals(facade.login("randomUser", null), false);
+    }
+
+    @Test
+    public void nullUsernameAndPassword() {
+        Facade facade = Facade.getInstance();
+        assertEquals(facade.login(null, null), false);
+    }
 
     @Test
     public void userDoesNotExist() {
-        UserSvcProvider usp = UserSvcProvider.getInstance();
-        assertEquals(usp.login("nonexistentUser", "irrelevantPassword"), false);
+        Facade facade = Facade.getInstance();
+        assertEquals(facade.login("nonexistentUser", "irrelevantPassword"), false);
     }
 
     @Test
     public void userExistsWrongPassword() {
-        UserSvcProvider usp = UserSvcProvider.getInstance();
-        usp.register("Test", "User", "testUser", "testPassword", UserType.USER);
-        assertEquals(usp.login("testUser", "wrongPassword"), false);
+        Facade facade = Facade.getInstance();
+        facade.registerUser("Test", "User", "testUser", "testPassword", UserType.USER);
+        assertEquals(facade.login("testUser", "wrongPassword"), false);
     }
 
     @Test
     public void userExistsCorrectPassword() {
-        UserSvcProvider usp = UserSvcProvider.getInstance();
-        usp.register("Test", "User", "testUser", "testPassword", UserType.USER);
-        assertEquals(usp.login("testUser", "testPassword"), true);
+        Facade facade = Facade.getInstance();
+        facade.registerUser("Test", "User", "testUser", "testPassword", UserType.USER);
+        assertEquals(facade.login("testUser", "wrongPassword"), false);
     }
 }
