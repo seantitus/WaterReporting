@@ -11,8 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.zoinks.waterreporting.R;
+import com.zoinks.waterreporting.model.Facade;
 import com.zoinks.waterreporting.model.User;
-import com.zoinks.waterreporting.model.UserSvcProvider;
 
 /**
  * Activity to allow users to update their profile
@@ -21,8 +21,8 @@ import com.zoinks.waterreporting.model.UserSvcProvider;
  */
 
 public class UpdateProfileActivity extends AppCompatActivity {
-    private final UserSvcProvider usp = UserSvcProvider.getInstance();
-    private final User currentUser = usp.getCurrentUser();
+    private final Facade facade = Facade.getInstance();
+    private final User currentUser = facade.getCurrentUser();
 
     private EditText mUsernameView;
     private EditText mFirstNameView;
@@ -119,8 +119,8 @@ public class UpdateProfileActivity extends AppCompatActivity {
         if (error) {
             focusView.requestFocus();
         } else {
-            if (usp.update(currentUser.getUsername(), username, firstName, lastName, password,
-                    email, address, phone)) {
+            if (facade.updateUser(currentUser.getUsername(), username, firstName, lastName,
+                    password, email, address, phone)) {
                 finish();
             } else {
                 mUsernameView.setError(getString(R.string.error_username_taken));

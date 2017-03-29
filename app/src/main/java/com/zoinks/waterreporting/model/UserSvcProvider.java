@@ -6,39 +6,21 @@ import java.util.Map;
 
 /**
  * Class to manage information and services related to users
- * Implements Singleton design pattern
+ * Has package visibility because it should only be accessed from the facade, not directly
  *
  * Created by Nancy on 02/21/2017.
  */
 
-public class UserSvcProvider {
-    private static UserSvcProvider usp;
+class UserSvcProvider {
     private User currentUser;
-    private static final Map<String, User> USERS = new HashMap<>();
+    private final Map<String, User> USERS = new HashMap<>();
 
-    private UserSvcProvider() {
-        USERS.put("user", new User("user", SHA1("user"), "User", "User", UserType.USER));
-        USERS.put("worker", new User("worker", SHA1("worker"), "Worker", "User", UserType.WORKER));
-        USERS.put("manager", new User("manager", SHA1("manager"), "Manager", "User", UserType.MANAGER));
-        USERS.put("admin", new User("admin", SHA1("admin"), "Admin", "User", UserType.ADMINISTRATOR));
-    }
-
-    /**
-     * Accessor for singleton instance of UserSvcProvider
-     * @return UserSvcProvider singleton instance
-     */
-    public static UserSvcProvider getInstance() {
-        if (usp == null) {
-            usp = new UserSvcProvider();
-        }
-        return usp;
-    }
     /**
      * Returns the currently logged in user, if any
      *
      * @return the currently logged in user, if any
      */
-    public User getCurrentUser() {
+    User getCurrentUser() {
         return currentUser;
     }
 
@@ -52,7 +34,7 @@ public class UserSvcProvider {
      * @param privilege type of new user, used for privilege
      * @return True if the new user was registered, False if the user was not registered (ie username taken)
      */
-    public boolean register(String firstName, String lastName, String username, String password,
+    boolean register(String firstName, String lastName, String username, String password,
                             UserType privilege) {
         if (USERS.containsKey(username)) {
             return false;
@@ -73,7 +55,7 @@ public class UserSvcProvider {
      * @param password "" if password was unchanged, otherwise old hashed password
      * @return boolean true if profile was updated
      */
-    public boolean update(String oldUsername, String newUsername, String firstName, String lastName,
+    boolean update(String oldUsername, String newUsername, String firstName, String lastName,
                           String password, String email, String address, String phone) {
         if (!newUsername.equals(oldUsername)) {
             if (USERS.containsKey(newUsername)) {  // trying to change to a username that's taken
@@ -114,14 +96,18 @@ public class UserSvcProvider {
     }
 
     /**
-     * Attempts login
+     * Attempts login; data is checked in the UI for null/etc before being passed here
      *
      * @param username username of profile trying to login as
      * @param password to be checked for a match
      * @return True only if user exists and password matches
-     *         False if password incorrect, user does not exist, user blocked
+     *         False if password incorrect, user does not exist, or user blocked
      */
-    public boolean login(String username, String password) {
+    boolean login(String username, String password) {
+        if (username == null || password == null) {  // required bc null is a valid key in hashmaps
+            return false;
+        }
+
         if (USERS.containsKey(username)) {
             User user = USERS.get(username);
             if (user.getPassword().equals(SHA1(password))) {  //TODO: and if user is not banned, etc
@@ -135,7 +121,7 @@ public class UserSvcProvider {
     /**
      * Logs user out of application and resets current user
      */
-    public void logout() {
+    void logout() {
         currentUser = null;
     }
 

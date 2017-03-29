@@ -13,12 +13,12 @@ public abstract class WaterReport {
     private static int nextId = 0;
 
     private final int id;
-    private final User author;
+    private final String author;
     private final Date timestamp;
     private final double latitude;
     private final double longitude;
 
-    WaterReport(Date timestamp, User author, double latitude, double longitude) {
+    WaterReport(Date timestamp, String author, double latitude, double longitude) {
         this.id = nextId++;
         this.author = author;
         this.timestamp = timestamp;
@@ -95,6 +95,6 @@ public abstract class WaterReport {
 
     @Override
     public String toString() {
-        return id + " " + author.getUsername() + " " + timestamp + " " + latitude + "," + longitude;
+        return id + " " + author + " " + timestamp + " " + latitude + "," + longitude;
     }
 }

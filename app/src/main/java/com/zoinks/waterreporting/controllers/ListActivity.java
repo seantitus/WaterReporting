@@ -10,13 +10,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.zoinks.waterreporting.R;
+import com.zoinks.waterreporting.model.Facade;
 import com.zoinks.waterreporting.model.WaterReport;
-import com.zoinks.waterreporting.model.WaterReportSvcProvider;
 
 import java.util.List;
 
 public class ListActivity extends AppCompatActivity {
-    private final WaterReportSvcProvider wrsp = WaterReportSvcProvider.getInstance();
+    private final Facade facade = Facade.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,9 +26,9 @@ public class ListActivity extends AppCompatActivity {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list);
         assert recyclerView != null;
         if (getIntent().getBooleanExtra("ManagerList", false)) {
-            recyclerView.setAdapter(new WaterReportRecyclerViewAdapter(wrsp.getQualityReports()));
+            recyclerView.setAdapter(new WaterReportRecyclerViewAdapter(facade.getQualityReports()));
         } else {
-            recyclerView.setAdapter(new WaterReportRecyclerViewAdapter(wrsp.getSourceReports()));
+            recyclerView.setAdapter(new WaterReportRecyclerViewAdapter(facade.getSourceReports()));
         }
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
     }
