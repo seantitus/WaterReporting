@@ -75,23 +75,23 @@ public class User {
         this.password = password;
     }
 
-    void setFirstName(String firstName) {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    void setLastName(String lastName) {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
-    void setEmail(String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    void setAddress(String address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 
-    void setPhone(String phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 }

@@ -9,8 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.zoinks.waterreporting.R;
-import com.zoinks.waterreporting.model.Facade;
 import com.zoinks.waterreporting.model.User;
+import com.zoinks.waterreporting.model.UserSvcProvider;
 import com.zoinks.waterreporting.model.UserType;
 
 /**
@@ -19,7 +19,7 @@ import com.zoinks.waterreporting.model.UserType;
  * Created by Nancy on 2/15/17.
  */
 public class MainActivity extends AppCompatActivity {
-    private final Facade facade = Facade.getInstance();
+    private final UserSvcProvider usp = UserSvcProvider.getInstance();
 
     private TextView mUsernameView;
     private TextView mPrivilegeView;
@@ -36,8 +36,8 @@ public class MainActivity extends AppCompatActivity {
 
         Button logout = (Button) findViewById(R.id.logout_button);
         logout.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                facade.logout();
+            public void onClick(View arg0) {
+                usp.logout();
                 finish();
             }
         });
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Button viewQualityList = (Button) findViewById(R.id.view_quality_list);
-        if (facade.getCurrentUser().checkPrivilege() == UserType.MANAGER.getPrivilege()) {
+        if (usp.getCurrentUser().checkPrivilege() == UserType.MANAGER.getPrivilege()) {
             viewQualityList.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -95,8 +95,8 @@ public class MainActivity extends AppCompatActivity {
 
         Button submitWaterQualityReport = (Button) findViewById(R.id.submit_quality_report);
         // make sure only workers and managers can add a new report
-        if (facade.getCurrentUser().checkPrivilege() == UserType.MANAGER.getPrivilege()
-                || facade.getCurrentUser().checkPrivilege() == UserType.WORKER.getPrivilege()) {
+        if (usp.getCurrentUser().checkPrivilege() == UserType.MANAGER.getPrivilege()
+                || usp.getCurrentUser().checkPrivilege() == UserType.WORKER.getPrivilege()) {
             submitWaterQualityReport.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button viewHistoricalReport = (Button) findViewById(R.id.view_historical_report);
         // only managers can generate historical reports
-        if (facade.getCurrentUser().checkPrivilege() == UserType.MANAGER.getPrivilege()) {
+        if (usp.getCurrentUser().checkPrivilege() == UserType.MANAGER.getPrivilege()) {
             viewHistoricalReport.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -130,14 +130,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateLabels() {
-        try {
-            User current = facade.getCurrentUser();
-            mUsernameView.setText(String.format("Username: %s", current.getUsername()));
-            UserType privilege = UserType.values()[current.checkPrivilege() / 10 - 1];
-            mPrivilegeView.setText(String.format("Privilege: %s", privilege.name()));
-        } catch (NullPointerException e) {  // happens when currentUser is null from logout
-            finish();
-        }
+        User current = usp.getCurrentUser();
+        mUsernameView.setText(String.format("Username: %s", current.getUsername()));
+        UserType privilege = UserType.values()[current.checkPrivilege() / 10 - 1];
+        mPrivilegeView.setText(String.format("Privilege: %s", privilege.name()));
     }
 
 }
