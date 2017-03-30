@@ -4,8 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -53,13 +56,28 @@ public class HistoricalReportOptionsActivity extends AppCompatActivity {
             mYearView.setError(getString(R.string.error_field_required));
             mYearView.requestFocus();
         } else {
-            int year = Integer.parseInt(yearString);
-            int selectedId = mRadioGroup.getCheckedRadioButtonId();
-            Intent display = new Intent(HistoricalReportOptionsActivity.this,
-                    HistoricalGraphActivity.class);
-            display.putExtra("Year", year);
-            display.putExtra("Virus", selectedId == 0);
-            startActivity(display);
+            // check that the latitude and longitude are valid
+            double latitude = Double.parseDouble(latString);
+            double longitude = Double.parseDouble(longString);
+            if (latitude < -90.0 || latitude > 90) {
+                mLatitudeView.setError(getString(R.string.invalid_latitude));
+                mLatitudeView.requestFocus();
+            } else if (longitude < -180.0 || longitude > 180.0) {
+                mLongitudeView.setError(getString(R.string.invalid_longitude));
+                mLongitudeView.requestFocus();
+            } else {
+                // if all the data is validated... switch to the correct activity!
+                int year = Integer.parseInt(yearString);
+                int selectedId = mRadioGroup.getCheckedRadioButtonId();
+                RadioButton rb = (RadioButton) findViewById(selectedId);
+                Intent display = new Intent(HistoricalReportOptionsActivity.this,
+                        HistoricalGraphActivity.class);
+                display.putExtra("Latitude", latitude);
+                display.putExtra("Longitude", longitude);
+                display.putExtra("Year", year);
+                display.putExtra("Virus", rb.getText().toString().equals("Virus"));
+                startActivity(display);
+            }
         }
     }
 }
