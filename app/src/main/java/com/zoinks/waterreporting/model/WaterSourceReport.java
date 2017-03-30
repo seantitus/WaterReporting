@@ -13,7 +13,7 @@ public class WaterSourceReport extends WaterReport {
     private final WaterSourceType type;
     private final WaterSourceCondition condition;
 
-    public WaterSourceReport(Date timestamp, String author, double latitude, double longitude,
+    public WaterSourceReport(Date timestamp, User author, double latitude, double longitude,
                              WaterSourceType type, WaterSourceCondition condition) {
         super(timestamp, author, latitude, longitude);
         this.type = type;

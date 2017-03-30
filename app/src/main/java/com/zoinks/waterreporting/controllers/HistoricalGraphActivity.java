@@ -9,12 +9,12 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.zoinks.waterreporting.R;
-import com.zoinks.waterreporting.model.Facade;
+import com.zoinks.waterreporting.model.WaterReportSvcProvider;
 
 import java.util.List;
 
 public class HistoricalGraphActivity extends AppCompatActivity {
-    private final Facade facade = Facade.getInstance();
+    private final WaterReportSvcProvider wrsp = WaterReportSvcProvider.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,10 +24,8 @@ public class HistoricalGraphActivity extends AppCompatActivity {
         LineChart lineChart = (LineChart) findViewById(R.id.graph);
 
         int year = getIntent().getIntExtra("Year", 0);
-        double latitude = getIntent().getDoubleExtra("Latitude", 0);
-        double longitude = getIntent().getDoubleExtra("Longitude", 0);
         boolean virus = getIntent().getBooleanExtra("Virus", true);
-        List<Entry> entries = facade.getYearsData(year, latitude, longitude, virus);
+        List<Entry> entries = wrsp.getYearsData(year, virus);
         LineDataSet dataSet = new LineDataSet(entries, year + "");
 
         LineData data = new LineData(dataSet);

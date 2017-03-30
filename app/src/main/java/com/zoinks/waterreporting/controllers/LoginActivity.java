@@ -19,7 +19,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.zoinks.waterreporting.R;
-import com.zoinks.waterreporting.model.Facade;
+import com.zoinks.waterreporting.model.UserSvcProvider;
 
 /**
  * A login screen that offers login via username/password.
@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
      */
     private UserLoginTask mAuthTask = null;
 
-    private final Facade facade = Facade.getInstance();
+    private final UserSvcProvider usp = UserSvcProvider.getInstance();
 
     // UI references.
     private AutoCompleteTextView mUsernameView;
@@ -155,7 +155,7 @@ public class LoginActivity extends AppCompatActivity {
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    private class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
         private final String mUsername;
         private final String mPassword;
@@ -167,7 +167,7 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            return facade.login(mUsername, mPassword);
+            return usp.login(mUsername, mPassword);
         }
 
         @Override

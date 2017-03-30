@@ -14,7 +14,7 @@ public class WaterQualityReport extends WaterReport {
     private final double virusPPM;
     private final double contaminantPPM;
 
-    public WaterQualityReport(Date timestamp, String author, double latitude, double longitude,
+    public WaterQualityReport(Date timestamp, User author, double latitude, double longitude,
                               WaterQualityCondition cond, double virusPPM, double contaminantPPM) {
         super(timestamp, author, latitude, longitude);
         this.condition = cond;
