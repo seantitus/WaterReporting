@@ -1,7 +1,7 @@
 package com.zoinks.waterreporting;
 
 import com.zoinks.waterreporting.model.Facade;
-import com.zoinks.waterreporting.model.UserType
+import com.zoinks.waterreporting.model.UserType;
 
 import org.junit.Test;
 
