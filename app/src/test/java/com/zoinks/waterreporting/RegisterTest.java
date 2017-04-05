@@ -16,13 +16,13 @@ public class RegisterTest {
     @Test
     public void nullFirstName(){
         Facade facade = Facade.getInstance();
-        assertEquals(facade.registerUser(null, "lastName", "username", "password", UserType.USER), false);
+        assertEquals(facade.registerUser(null, "lastName", "usernameONE", "password", UserType.USER), false);
     }
 
     @Test
     public void nullLastName(){
         Facade facade = Facade.getInstance();
-        assertEquals(facade.registerUser("firstName", null, "username", "password", UserType.USER), false);
+        assertEquals(facade.registerUser("firstName", null, "usernameTWO", "password", UserType.USER), false);
     }
 
     @Test
@@ -34,13 +34,13 @@ public class RegisterTest {
     @Test
     public void nullPassword(){
         Facade facade = Facade.getInstance();
-        assertEquals(facade.registerUser("firstName", "lastName", "username", null, UserType.USER), false);
+        assertEquals(facade.registerUser("firstName", "lastName", "usernameTHREE", null, UserType.USER), false);
     }
 
     @Test
     public void nullUserType(){
         Facade facade = Facade.getInstance();
-        assertEquals(facade.registerUser("firstName", "lastName", "username", "password", null), false);
+        assertEquals(facade.registerUser("firstName", "lastName", "usernameFOUR", "password", null), false);
     }
 
     @Test
@@ -59,6 +59,6 @@ public class RegisterTest {
     @Test
     public void registerSuccessfully(){
         Facade facade = Facade.getInstance();
-        assertEquals(facade.registerUser("firstName", "lastName", "username", "password", UserType.USER), true);
+        assertEquals(facade.registerUser("firstName", "lastName", "usernameFIVE", "password", UserType.USER), true);
     }
 }
