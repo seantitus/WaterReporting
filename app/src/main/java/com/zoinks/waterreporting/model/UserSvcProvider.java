@@ -115,10 +115,11 @@ class UserSvcProvider {
                     return false;
                 } else {
                     currentUser = user;
+                    user.clearIncorrectLoginAttempts();
                     return true;
                 }
             } else {
-                user.setLockedOut(true);
+                user.incrementIncorrectLoginAttempts();
             }
         }
         return false;

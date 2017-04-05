@@ -13,7 +13,7 @@ public class User {
     private String firstName;
     private String lastName;
     private final UserType userType;
-    private boolean lockedOut;
+    private int incorrectLoginAttempts;
 
     // optional profile information
     private String email;
@@ -34,7 +34,7 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userType = userType;
-        this.lockedOut = false;
+        this.incorrectLoginAttempts = 0;
     }
 
     public String getUsername() {
@@ -74,7 +74,7 @@ public class User {
     }
 
     public boolean isLockedOut() {
-        return lockedOut;
+        return incorrectLoginAttempts >= 3;
     }
 
     public void setPassword(String password) {
@@ -101,7 +101,11 @@ public class User {
         this.phone = phone;
     }
 
-    public void setLockedOut(boolean lockedOut) {
-        this.lockedOut = lockedOut;
+    public void clearIncorrectLoginAttempts() {
+        incorrectLoginAttempts = 0;
+    }
+
+    public void incrementIncorrectLoginAttempts() {
+        incorrectLoginAttempts++;
     }
 }

@@ -67,12 +67,12 @@ public class LoginTest {
     public void userLockedOut() {
         Facade facade = Facade.getInstance();
         facade.logout();
-        facade.registerUser("Test", "User", "testUser2", "testPassword", UserType.USER);
-        assertEquals(facade.login("testUser2", "wrongPasswordToLockOut"), false);
-        assertEquals(facade.getCurrentUser(), null); // user should be locked out
-        assertEquals(facade.login("testUser2", "wrongPasswordToLockOut"), false);
-        assertEquals(facade.getCurrentUser(), null);
-        assertEquals(facade.login("testUser2", "testPassword"), false);
+        facade.registerUser("Test", "User", "testUser2", "correctPassword", UserType.USER);
+        for (int i = 0; i < 3; i++) {  // user must incorrectly login 3 times to get locked out
+            assertEquals(facade.login("testUser2", "wrongPasswordToLockOut"), false);
+            assertEquals(facade.getCurrentUser(), null);
+        }
+        assertEquals(facade.login("testUser2", "correctPassword"), false);
         assertEquals(facade.getCurrentUser(), null);
     }
 }
