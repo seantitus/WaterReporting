@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zoinks.waterreporting.R;
 import com.zoinks.waterreporting.model.Facade;
@@ -62,11 +63,12 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
             }
         });
 
-        Button mCancelButton
-                = (Button) findViewById(R.id.cancel_submit_report_button);
+        Button mCancelButton = (Button) findViewById(R.id.cancel_submit_report_button);
         mCancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "Report not added.", Toast.LENGTH_SHORT).show();
+
                 finish();
             }
         });
@@ -120,6 +122,8 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
             WaterSourceCondition waterSourceCondition
                     = WaterSourceCondition.get(mWaterConditionSpinner.getSelectedItemPosition());
             facade.addSourceReport(latitude, longitude, waterSourceType, waterSourceCondition);
+
+            Toast.makeText(getApplicationContext(), "Report added!", Toast.LENGTH_SHORT).show();
 
             Intent toMain = new Intent(SubmitWaterSourceReportActivity.this, MainActivity.class);
             startActivity(toMain);

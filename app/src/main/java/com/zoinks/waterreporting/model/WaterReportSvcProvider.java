@@ -5,7 +5,6 @@ import com.github.mikephil.charting.data.Entry;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -78,16 +77,6 @@ class WaterReportSvcProvider {
      */
     void addQualityReport(double latitude, double longitude, WaterQualityCondition condition,
                                  double virusPPM, double contaminantPPM, User user) {
-        // dummy reports for testing historical reports
-        for (int month = 0; month < 12; month++) {
-            Date date = new GregorianCalendar(2016, month, 2).getTime();
-            QUALITY_LIST.add(new WaterQualityReport(date, "manager", 0, 0,
-                    WaterQualityCondition.TREATABLE, (month % 4), (month % 4 + 10)));
-        }
-        Date date = new GregorianCalendar(2016, 2, 3).getTime();
-        QUALITY_LIST.add(new WaterQualityReport(date, "manager", 0, 0,
-                WaterQualityCondition.UNSAFE, 10, 1));
-
         Calendar calendar = Calendar.getInstance();
         Date time = calendar.getTime();
         QUALITY_LIST.add(new WaterQualityReport(time, user.getUsername(), latitude, longitude,

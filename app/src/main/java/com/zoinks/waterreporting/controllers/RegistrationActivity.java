@@ -8,6 +8,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.zoinks.waterreporting.R;
 import com.zoinks.waterreporting.model.Facade;
@@ -54,6 +55,8 @@ public class RegistrationActivity extends AppCompatActivity {
         mCancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "Registration canceled.", Toast.LENGTH_SHORT).show();
+
                 finish();
             }
         });
@@ -67,6 +70,7 @@ public class RegistrationActivity extends AppCompatActivity {
         UserType privilege = UserType.get((mPrivilegeSpinner.getSelectedItemPosition() + 1) * 10);
 
         if (facade.registerUser(firstName, lastName, username, password, privilege)) {
+            Toast.makeText(getApplicationContext(), "Registration successful! Please login now.", Toast.LENGTH_LONG).show();
             finish();
         } else {
             mUsernameView.setError(getString(R.string.error_username_taken));

@@ -9,6 +9,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zoinks.waterreporting.R;
 import com.zoinks.waterreporting.model.Facade;
@@ -75,6 +76,8 @@ public class UpdateProfileActivity extends AppCompatActivity {
         mGoHomeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "No updates applied.", Toast.LENGTH_SHORT).show();
+
                 finish();
             }
         });
@@ -121,6 +124,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
         } else {
             if (facade.updateUser(currentUser.getUsername(), username, firstName, lastName,
                     password, email, address, phone)) {
+                Toast.makeText(getApplicationContext(), "Profile updated!", Toast.LENGTH_SHORT).show();
                 finish();
             } else {
                 mUsernameView.setError(getString(R.string.error_username_taken));

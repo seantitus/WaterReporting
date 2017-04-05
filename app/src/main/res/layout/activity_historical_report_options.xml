@@ -84,7 +84,6 @@
 
             </RadioGroup>
 
-
             <Button
                 android:id="@+id/submit_button"
                 style="?android:textAppearanceSmall"
@@ -107,5 +106,4 @@
 
         </LinearLayout>
     </ScrollView>
-
 </android.support.design.widget.CoordinatorLayout>

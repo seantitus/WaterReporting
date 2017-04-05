@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,8 +37,7 @@ public class HistoricalReportOptionsActivity extends AppCompatActivity {
             }
         });
 
-        Button mCancelButton
-                = (Button) findViewById(R.id.cancel_button);
+        Button mCancelButton = (Button) findViewById(R.id.cancel_button);
         mCancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,8 +77,7 @@ public class HistoricalReportOptionsActivity extends AppCompatActivity {
             } else {
                 // if all the data is validated... switch to the correct activity!
                 int year = Integer.parseInt(yearString);
-                int selectedId = mRadioGroup.getCheckedRadioButtonId();
-                RadioButton rb = (RadioButton) findViewById(selectedId);
+                RadioButton rb = (RadioButton) findViewById(mRadioGroup.getCheckedRadioButtonId());
                 Intent display = new Intent(HistoricalReportOptionsActivity.this,
                         HistoricalGraphActivity.class);
                 display.putExtra("Latitude", latitude);
