@@ -13,6 +13,7 @@ public class User {
     private String firstName;
     private String lastName;
     private final UserType userType;
+    private boolean lockedOut;
 
     // optional profile information
     private String email;
@@ -33,6 +34,7 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userType = userType;
+        this.lockedOut = false;
     }
 
     public String getUsername() {
@@ -71,6 +73,10 @@ public class User {
         return userType.getPrivilege();
     }
 
+    public boolean isLockedOut() {
+        return lockedOut;
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -93,5 +99,9 @@ public class User {
 
     void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public void setLockedOut(boolean lockedOut) {
+        this.lockedOut = lockedOut;
     }
 }

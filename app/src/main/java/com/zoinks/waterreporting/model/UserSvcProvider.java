@@ -110,9 +110,15 @@ class UserSvcProvider {
 
         if (USERS.containsKey(username)) {
             User user = USERS.get(username);
-            if (user.getPassword().equals(SHA1(password))) {  // TODO: ..if user is not banned, etc
-                currentUser = user;
-                return true;
+            if (user.getPassword().equals(SHA1(password))) {
+                if (user.isLockedOut()) {
+                    return false;
+                } else {
+                    currentUser = user;
+                    return true;
+                }
+            } else {
+                user.setLockedOut(true);
             }
         }
         return false;
