@@ -48,7 +48,7 @@ public class addSourceReportTest {
         calendar = Calendar.getInstance();
         time = calendar.getTime();
         facade.addSourceReport(1,0, WaterSourceType.BOTTLED, WaterSourceCondition.POTABLE);
-        WaterSourceReport report = new WaterSourceReport(time,"testUser",1,0, WaterSourceType.BOTTLED, WaterSourceCondition.POTABLE);
+        WaterSourceReport report = new WaterSourceReport(time,"testWorker",1,0, WaterSourceType.BOTTLED, WaterSourceCondition.POTABLE);
         List<WaterReport> reports = facade.getSourceReports();
         assertEquals(reports.contains(report), true);
     }
@@ -61,7 +61,7 @@ public class addSourceReportTest {
         calendar = Calendar.getInstance();
         time = calendar.getTime();
         facade.addSourceReport(2,0, WaterSourceType.BOTTLED, WaterSourceCondition.POTABLE);
-        WaterSourceReport report = new WaterSourceReport(time,"testUser",2,0, WaterSourceType.BOTTLED, WaterSourceCondition.POTABLE);
+        WaterSourceReport report = new WaterSourceReport(time,"testMan",2,0, WaterSourceType.BOTTLED, WaterSourceCondition.POTABLE);
         List<WaterReport> reports = facade.getSourceReports();
         assertEquals(reports.contains(report), true);
     }
