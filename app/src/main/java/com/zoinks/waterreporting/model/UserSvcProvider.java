@@ -1,7 +1,9 @@
 package com.zoinks.waterreporting.model;
 
 import java.security.MessageDigest;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,6 +24,14 @@ class UserSvcProvider {
      */
     User getCurrentUser() {
         return currentUser;
+    }
+
+    /**
+     * Gets all of the users currently registered
+     * @return a List of all of the Users currently registered
+     */
+    List<User> getAllUsers() {
+        return new ArrayList<>(USERS.values());
     }
 
     /**

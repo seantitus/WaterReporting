@@ -138,6 +138,14 @@ public class Facade {
     }
 
     /**
+     * Gets all of the users currently registered
+     * @return a List of all of the Users currently registered
+     */
+    public List<User> getAllUsers() {
+        return usp.getAllUsers();
+    }
+
+    /**
      * Attempts to register a new user
      *
      * @param firstName first name of the new user

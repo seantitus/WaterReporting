@@ -60,4 +60,5 @@
     <string name="prompt_year">Year</string>
     <string name="radio_virus">Virus</string>
     <string name="radio_contaminant">Contaminant</string>
+    <string name="title_activity_account_list">AccountListActivity</string>
 </resources>
