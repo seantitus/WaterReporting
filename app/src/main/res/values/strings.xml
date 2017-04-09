@@ -2,8 +2,8 @@
     <string name="app_name">water.src</string>
 
     <!-- Strings related to login -->
-    <string name="title_activity_login">LoginActivity</string>
-    <string name="title_activity_registration">RegistrationActivity</string>
+    <string name="title_activity_login">Login to water.src</string>
+    <string name="title_activity_registration">Register</string>
     <string name="prompt_username">Username</string>
     <string name="prompt_password">Password</string>
     <string name="prompt_first_name">First Name</string>
@@ -26,12 +26,15 @@
 
     <!-- Strings for app -->
     <string name="alt_logo">water.src Logo</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="title_activity_list">ListActivity</string>
+    <string name="title_activity_main">water.src Main Page</string>
     <string name="error_field_required">This field is required</string>
     <string name="action_cancel">Cancel</string>
     <string name="logout">Log out</string>
     <string name="action_submit">Submit</string>
+
+    <!-- Titles -->
+    <string name="title_activity_list">Water Report List</string>
+    <string name="title_activity_maps">Map</string>
 
     <!-- Main screen -->
     <string name="report_list">View Source Reports</string>
@@ -40,6 +43,7 @@
     <string name="new_quality_report">Add New Quality Report</string>
     <string name="view_map">View Map</string>
     <string name="view_historical_report">View Historical Report</string>
+    <string name="admin_panel">View Admin Panel</string>
 
     <!-- Strings for new water report -->
     <string name="prompt_latitude">Latitude</string>
@@ -51,7 +55,6 @@
     <string name="prompt_virusPPM">Virus PPM</string>
     <string name="prompt_contaminantPPM">Contaminant PPM</string>
     <string name="invalid_PPM">Must be between 0 and 1,000,000</string>
-    <string name="title_activity_maps">Map</string>
     <string name="title_activity_submit_water_quality_report">SubmitWaterQualityReportActivity
     </string>
 
@@ -60,5 +63,12 @@
     <string name="prompt_year">Year</string>
     <string name="radio_virus">Virus</string>
     <string name="radio_contaminant">Contaminant</string>
-    <string name="title_activity_account_list">AccountListActivity</string>
+    <string name="title_activity_view_user">ViewUserActivity</string>
+
+    <!-- Strings for admin panel -->
+    <string name="title_activity_account_list">List of Accounts</string>
+    <string name="prompt_name">Name</string>
+    <string name="is_blocked">Is Blocked?</string>
+    <string name="unblock_account">Unblock Account</string>
+    <string name="delete_account">Delete Account</string>
 </resources>

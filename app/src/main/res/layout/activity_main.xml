@@ -100,6 +100,13 @@
             android:visibility="gone"
             android:id="@+id/view_historical_report"/>
 
+        <Button
+            android:text="@string/admin_panel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:id="@+id/view_admin_panel"/>
+
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>
