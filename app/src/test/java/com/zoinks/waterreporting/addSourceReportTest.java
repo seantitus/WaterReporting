@@ -37,7 +37,8 @@ public class addSourceReportTest {
         facade.addSourceReport(0,0, WaterSourceType.BOTTLED, WaterSourceCondition.POTABLE);
         WaterSourceReport report = new WaterSourceReport(time,"testUser",0,0, WaterSourceType.BOTTLED, WaterSourceCondition.POTABLE);
         List<WaterReport> reports = facade.getSourceReports();
-        assertEquals(reports.contains(report), true);
+        WaterReport curr = (WaterSourceReport) reports.get(reports.size() - 1);
+        assertEquals(curr.getId() == report.getId() - 1 && curr.getLatitude() == 0, true);
     }
 
     @Test
@@ -50,7 +51,8 @@ public class addSourceReportTest {
         facade.addSourceReport(1,0, WaterSourceType.BOTTLED, WaterSourceCondition.POTABLE);
         WaterSourceReport report = new WaterSourceReport(time,"testWorker",1,0, WaterSourceType.BOTTLED, WaterSourceCondition.POTABLE);
         List<WaterReport> reports = facade.getSourceReports();
-        assertEquals(reports.contains(report), true);
+        WaterReport curr = (WaterSourceReport) reports.get(reports.size() - 1);
+        assertEquals(curr.getId() == report.getId() - 1 && curr.getLatitude() == 1, true);
     }
 
     @Test
@@ -63,6 +65,7 @@ public class addSourceReportTest {
         facade.addSourceReport(2,0, WaterSourceType.BOTTLED, WaterSourceCondition.POTABLE);
         WaterSourceReport report = new WaterSourceReport(time,"testMan",2,0, WaterSourceType.BOTTLED, WaterSourceCondition.POTABLE);
         List<WaterReport> reports = facade.getSourceReports();
-        assertEquals(reports.contains(report), true);
+        WaterReport curr = (WaterSourceReport) reports.get(reports.size() - 1);
+        assertEquals(curr.getId() == report.getId() - 1 && curr.getLatitude() == 2, true);
     }
 }
