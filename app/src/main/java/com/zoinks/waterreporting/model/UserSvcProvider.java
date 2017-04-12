@@ -56,6 +56,24 @@ class UserSvcProvider {
     }
 
     /**
+     * Delete user's account
+     *
+     * @param username username of the user to delete
+     */
+    void deleteUser(String username) {
+        USERS.remove(username);
+    }
+
+    /**
+     * Gets the User by username
+     * @param username of User to get
+     * @return User with associated username
+     */
+    User getUserByUsername(String username) {
+        return USERS.get(username);
+    }
+
+    /**
      * Updates attributes passed in to update profile of current user
      *
      * @param oldUsername username from current user
@@ -125,7 +143,7 @@ class UserSvcProvider {
                     return false;
                 } else {
                     currentUser = user;
-                    user.clearIncorrectLoginAttempts();
+                    user.unblockAccount();
                     return true;
                 }
             } else {

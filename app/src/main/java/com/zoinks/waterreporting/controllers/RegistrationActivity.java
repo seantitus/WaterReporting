@@ -56,7 +56,6 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(), "Registration canceled.", Toast.LENGTH_SHORT).show();
-
                 finish();
             }
         });
@@ -70,7 +69,8 @@ public class RegistrationActivity extends AppCompatActivity {
         UserType privilege = UserType.get((mPrivilegeSpinner.getSelectedItemPosition() + 1) * 10);
 
         if (facade.registerUser(firstName, lastName, username, password, privilege)) {
-            Toast.makeText(getApplicationContext(), "Registration successful! Please login now.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Registration successful! Please login now.",
+                    Toast.LENGTH_LONG).show();
             finish();
         } else {
             mUsernameView.setError(getString(R.string.error_username_taken));

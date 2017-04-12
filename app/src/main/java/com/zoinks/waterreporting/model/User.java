@@ -37,6 +37,11 @@ public class User {
         this.incorrectLoginAttempts = 0;
     }
 
+    @Override
+    public String toString() {
+        return username + " / " + firstName + " " + lastName + " / " + userType;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -101,7 +106,7 @@ public class User {
         this.phone = phone;
     }
 
-    public void clearIncorrectLoginAttempts() {
+    public void unblockAccount() {
         incorrectLoginAttempts = 0;
     }
 

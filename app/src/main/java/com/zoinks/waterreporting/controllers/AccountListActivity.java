@@ -1,5 +1,6 @@
 package com.zoinks.waterreporting.controllers;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -55,8 +56,8 @@ public class AccountListActivity extends AppCompatActivity {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             // set up the view for each individual item
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.report_item, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item,
+                    parent, false);
             return new ViewHolder(view);
         }
 
@@ -65,18 +66,19 @@ public class AccountListActivity extends AppCompatActivity {
             holder.mUser = mUsers.get(position);
 
             // binding data
-            holder.mUserView.setText(mUsers.get(position).toString());
+            holder.mView.setText(mUsers.get(position).toString());
 
             // set up listener to handle if the user clicks on the list item
-//            holder.mView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Context context = v.getContext();
-//                    Intent intent = new Intent(context, MainActivity.class);
-//                    wrsp.setCurrentWaterReport(holder.mWaterReport);
-//                    context.startActivity(intent);
-//                }
-//            });
+            holder.mView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(AccountListActivity.this, ViewUserActivity.class);
+                    intent.putExtra("username", holder.mUser.getUsername());
+                    intent.putExtra("name", holder.mUser.getName());
+                    intent.putExtra("isBlocked", holder.mUser.isLockedOut() ? "Yes" : "No");
+                    startActivity(intent);
+                }
+            });
         }
 
         @Override
@@ -89,17 +91,17 @@ public class AccountListActivity extends AppCompatActivity {
          * about the binding b/t the model element (a WaterReport) and the two TextViews in the view
          */
         class ViewHolder extends RecyclerView.ViewHolder {
-            final TextView mUserView;
+            final TextView mView;
             User mUser;
 
             ViewHolder(View view) {
                 super(view);
-                mUserView = (TextView) view.findViewById(R.id.report);
+                mView = (TextView) view.findViewById(R.id.item);
             }
 
             @Override
             public String toString() {
-                return super.toString() + " '" + mUserView.getText() + "'";
+                return super.toString() + " '" + mView.getText() + "'";
             }
         }
     }

@@ -56,8 +56,8 @@ public class ListActivity extends AppCompatActivity {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             // set up the view for each individual item
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.report_item, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item,
+                    parent, false);
             return new ViewHolder(view);
         }
 
@@ -95,7 +95,7 @@ public class ListActivity extends AppCompatActivity {
 
             ViewHolder(View view) {
                 super(view);
-                mReportView = (TextView) view.findViewById(R.id.report);
+                mReportView = (TextView) view.findViewById(R.id.item);
             }
 
             @Override

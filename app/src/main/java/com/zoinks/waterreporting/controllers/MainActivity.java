@@ -121,6 +121,19 @@ public class MainActivity extends AppCompatActivity {
             });
             viewHistoricalReport.setVisibility(View.VISIBLE);
         }
+
+        Button viewAdminPanel = (Button) findViewById(R.id.view_admin_panel);
+        // only administrators can view the admin panel
+        if (facade.getCurrentUser().checkPrivilege() == UserType.ADMINISTRATOR.getPrivilege()) {
+            viewAdminPanel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent viewPanel = new Intent(MainActivity.this, AccountListActivity.class);
+                    startActivity(viewPanel);
+                }
+            });
+            viewAdminPanel.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

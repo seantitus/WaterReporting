@@ -161,6 +161,24 @@ public class Facade {
     }
 
     /**
+     * Delete user's account
+     *
+     * @param username username of the user to delete
+     */
+    public void deleteUser(String username) {
+        usp.deleteUser(username);
+    }
+
+    /**
+     * Gets the User by username
+     * @param username of User to get
+     * @return User with associated username
+     */
+    public User getUserByUsername(String username) {
+        return usp.getUserByUsername(username);
+    }
+
+    /**
      * Updates attributes passed in to update profile of current user
      *
      * @param oldUsername username from current user
