@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zoinks.waterreporting.R;
 import com.zoinks.waterreporting.model.Facade;
@@ -14,7 +15,7 @@ import com.zoinks.waterreporting.model.User;
 public class ViewUserActivity extends AppCompatActivity {
 
     private final Facade facade = Facade.getInstance();
-    private User user;
+    private User mUser;
 
     private TextView mUsernameView;
     private TextView mNameView;
@@ -25,7 +26,7 @@ public class ViewUserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_user);
 
-        user = facade.getUserByUsername(getIntent().getStringExtra("username"));
+        mUser = facade.getUserByUsername(getIntent().getStringExtra("username"));
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -41,10 +42,12 @@ public class ViewUserActivity extends AppCompatActivity {
         unblockAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                user.unblockAccount();
+                mUser.unblockAccount();
+                Toast.makeText(getApplicationContext(), String.format("User %s can now login",
+                        mUser.getUsername()), Toast.LENGTH_LONG).show();
             }
         });
-        if (user.isLockedOut()) {
+        if (mUser.isLockedOut()) {
             unblockAccount.setVisibility(View.VISIBLE);
         }
 
@@ -52,7 +55,9 @@ public class ViewUserActivity extends AppCompatActivity {
         deleteAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                facade.deleteUser(user.getUsername());
+                facade.deleteUser(mUser.getUsername());
+                Toast.makeText(getApplicationContext(), String.format("User %s deleted",
+                        mUser.getUsername()), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -60,8 +65,8 @@ public class ViewUserActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        mUsernameView.setText(String.format("Username: %s", user.getUsername()));
-        mNameView.setText(String.format("Name: %s", user.getName()));
-        mIsBlocked.setText(String.format("Is Blocked? %s", user.isLockedOut() ? "Yes" : "No"));
+        mUsernameView.setText(String.format("Username: %s", mUser.getUsername()));
+        mNameView.setText(String.format("Name: %s", mUser.getName()));
+        mIsBlocked.setText(String.format("Is Blocked? %s", mUser.isLockedOut() ? "Yes" : "No"));
     }
 }
