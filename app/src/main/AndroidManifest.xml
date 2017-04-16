@@ -38,40 +38,37 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".controllers.RegistrationActivity"
-            android:label="@string/title_activity_registration"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/title_activity_registration" />
         <activity
             android:name=".controllers.UpdateProfileActivity"
-            android:label="UpdateProfileActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/profile_update" />
         <activity
             android:name=".controllers.ListActivity"
             android:label="@string/title_activity_list"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".controllers.SubmitWaterSourceReportActivity"
-            android:label="SubmitWaterSourceReportActivity"
+            android:label="@string/new_source_report"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".controllers.MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity
             android:name=".controllers.SubmitWaterQualityReportActivity"
-            android:label="@string/title_activity_submit_water_quality_report"
+            android:label="@string/new_quality_report"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".controllers.HistoricalReportOptionsActivity"
-            android:label="@string/title_activity_historical_report_options"
+            android:label="@string/title_activity_historical_report_options" />
+        <activity android:name=".controllers.HistoricalGraphActivity"
+            android:label="@string/view_historical_report"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".controllers.HistoricalGraphActivity" />
         <activity
             android:name=".controllers.AccountListActivity"
-            android:label="@string/title_activity_account_list"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/title_activity_account_list" />
         <activity
             android:name=".controllers.ViewUserActivity"
-            android:label="@string/title_activity_view_user"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:label="@string/title_activity_view_user" />
     </application>
 
 </manifest>
