@@ -2,6 +2,7 @@ package com.zoinks.waterreporting.controllers;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -68,12 +69,47 @@ public class RegistrationActivity extends AppCompatActivity {
         String password = mPasswordView.getText().toString();
         UserType privilege = UserType.get((mPrivilegeSpinner.getSelectedItemPosition() + 1) * 10);
 
-        if (facade.registerUser(firstName, lastName, username, password, privilege)) {
-            Toast.makeText(getApplicationContext(), "Registration successful! Please login now.",
-                    Toast.LENGTH_LONG).show();
-            finish();
+        // Reset errors.
+        mFirstName.setError(null);
+        mLastName.setError(null);
+        mUsernameView.setError(null);
+        mPasswordView.setError(null);
+
+        boolean cancel = false;
+        View focusView = null;
+
+        // Check if user actually input stuff
+        if (TextUtils.isEmpty(firstName)) {
+            mFirstName.setError(getString(R.string.error_field_required));
+            focusView = mFirstName;
+            cancel = true;
+        } else if (TextUtils.isEmpty(lastName)) {
+            mLastName.setError(getString(R.string.error_field_required));
+            focusView = mLastName;
+            cancel = true;
+        } else if (TextUtils.isEmpty(username)) {
+            mUsernameView.setError(getString(R.string.error_field_required));
+            focusView = mUsernameView;
+            cancel = true;
+        } else if (TextUtils.isEmpty(password)) {
+            mPasswordView.setError(getString(R.string.error_field_required));
+            focusView = mPasswordView;
+            cancel = true;
+        }
+
+        if (cancel) {
+            // There was an error; don't attempt registration and focus the first
+            // form field with an error.
+            focusView.requestFocus();
         } else {
-            mUsernameView.setError(getString(R.string.error_username_taken));
+            // no errors, register!
+            if (facade.registerUser(firstName, lastName, username, password, privilege)) {
+                Toast.makeText(getApplicationContext(), "Registration successful! Please login now.",
+                        Toast.LENGTH_LONG).show();
+                finish();
+            } else {
+                mUsernameView.setError(getString(R.string.error_username_taken));
+            }
         }
     }
 }
