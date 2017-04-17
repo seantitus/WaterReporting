@@ -37,7 +37,7 @@ public class ViewUserActivity extends AppCompatActivity {
         mIsBanned = (TextView) findViewById(R.id.is_banned);
         mIsBanned.setText(String.format("Is Blocked? %s", getIntent().getStringExtra("isBanned")));
 
-        Button unblockAccount = (Button) findViewById(R.id.unblock_account);
+        final Button unblockAccount = (Button) findViewById(R.id.unblock_account);
         if (mUser.isLockedOut()) {
             unblockAccount.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -48,6 +48,7 @@ public class ViewUserActivity extends AppCompatActivity {
 
                     // update info
                     mIsBlocked.setText(String.format("Is Blocked? %s", mUser.isLockedOut() ? "Yes" : "No"));
+                    unblockAccount.setVisibility(View.GONE);
                 }
             });
             unblockAccount.setVisibility(View.VISIBLE);

@@ -34,23 +34,6 @@ public class MainActivity extends AppCompatActivity {
         mUsernameView = (TextView) findViewById(R.id.username_label);
         mPrivilegeView = (TextView) findViewById(R.id.privilege_label);
 
-        Button logout = (Button) findViewById(R.id.logout_button);
-        logout.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                facade.logout();
-                finish();
-            }
-        });
-
-        Button updateProfile = (Button) findViewById(R.id.update_profile);
-        updateProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent launchUpdate = new Intent(MainActivity.this, UpdateProfileActivity.class);
-                startActivity(launchUpdate);
-            }
-        });
-
         Button viewList = (Button) findViewById(R.id.view_list);
         viewList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,6 +120,23 @@ public class MainActivity extends AppCompatActivity {
             });
             viewAdminPanel.setVisibility(View.VISIBLE);
         }
+        
+        Button updateProfile = (Button) findViewById(R.id.update_profile);
+        updateProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent launchUpdate = new Intent(MainActivity.this, UpdateProfileActivity.class);
+                startActivity(launchUpdate);
+            }
+        });
+
+        Button logout = (Button) findViewById(R.id.logout_button);
+        logout.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                facade.logout();
+                finish();
+            }
+        });
     }
 
     @Override

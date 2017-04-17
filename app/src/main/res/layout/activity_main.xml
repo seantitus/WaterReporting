@@ -50,18 +50,6 @@
             android:layout_marginTop="38dp" />
 
         <Button
-            android:text="@string/logout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/logout_button" />
-
-        <Button
-            android:text="@string/profile_update"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/update_profile" />
-
-        <Button
             android:text="@string/report_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -106,6 +94,18 @@
             android:layout_height="wrap_content"
             android:visibility="gone"
             android:id="@+id/view_admin_panel"/>
+
+        <Button
+            android:text="@string/profile_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/update_profile" />
+
+        <Button
+            android:text="@string/logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/logout_button" />
 
     </LinearLayout>
 
