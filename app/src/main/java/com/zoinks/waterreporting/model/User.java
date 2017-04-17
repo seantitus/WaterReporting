@@ -14,6 +14,7 @@ public class User {
     private String lastName;
     private final UserType userType;
     private int incorrectLoginAttempts;
+    private boolean isBanned;
 
     // optional profile information
     private String email;
@@ -35,6 +36,7 @@ public class User {
         this.lastName = lastName;
         this.userType = userType;
         this.incorrectLoginAttempts = 0;
+        this.isBanned = false;
     }
 
     @Override
@@ -82,6 +84,10 @@ public class User {
         return incorrectLoginAttempts >= 3;
     }
 
+    public boolean isBanned() {
+        return isBanned;
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -110,7 +116,11 @@ public class User {
         incorrectLoginAttempts = 0;
     }
 
-    public void incrementIncorrectLoginAttempts() {
+    void incrementIncorrectLoginAttempts() {
         incorrectLoginAttempts++;
+    }
+
+    public void toggleBan() {
+        isBanned = !isBanned;
     }
 }

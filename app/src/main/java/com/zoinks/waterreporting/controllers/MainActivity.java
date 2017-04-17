@@ -83,43 +83,46 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button submitWaterSourceReport = (Button) findViewById(R.id.submit_source_report);
-        submitWaterSourceReport.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent submitReport = new Intent(MainActivity.this,
-                        SubmitWaterSourceReportActivity.class);
-                startActivity(submitReport);
-            }
-        });
-
-        Button submitWaterQualityReport = (Button) findViewById(R.id.submit_quality_report);
-        // make sure only workers and managers can add a new report
-        if (facade.getCurrentUser().checkPrivilege() == UserType.MANAGER.getPrivilege()
-                || facade.getCurrentUser().checkPrivilege() == UserType.WORKER.getPrivilege()) {
-            submitWaterQualityReport.setOnClickListener(new View.OnClickListener() {
+        // users can only submit reports if they are not banned
+        if (!facade.getCurrentUser().isBanned()) {
+            Button submitWaterSourceReport = (Button) findViewById(R.id.submit_source_report);
+            submitWaterSourceReport.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent submitReport = new Intent(MainActivity.this,
-                            SubmitWaterQualityReportActivity.class);
+                            SubmitWaterSourceReportActivity.class);
                     startActivity(submitReport);
                 }
             });
-            submitWaterQualityReport.setVisibility(View.VISIBLE);
-        }
 
-        Button viewHistoricalReport = (Button) findViewById(R.id.view_historical_report);
-        // only managers can generate historical reports
-        if (facade.getCurrentUser().checkPrivilege() == UserType.MANAGER.getPrivilege()) {
-            viewHistoricalReport.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent viewHistorical = new Intent(MainActivity.this,
-                            HistoricalReportOptionsActivity.class);
-                    startActivity(viewHistorical);
-                }
-            });
-            viewHistoricalReport.setVisibility(View.VISIBLE);
+            Button submitWaterQualityReport = (Button) findViewById(R.id.submit_quality_report);
+            // make sure only workers and managers can add a new report
+            if (facade.getCurrentUser().checkPrivilege() == UserType.MANAGER.getPrivilege()
+                    || facade.getCurrentUser().checkPrivilege() == UserType.WORKER.getPrivilege()) {
+                submitWaterQualityReport.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent submitReport = new Intent(MainActivity.this,
+                                SubmitWaterQualityReportActivity.class);
+                        startActivity(submitReport);
+                    }
+                });
+                submitWaterQualityReport.setVisibility(View.VISIBLE);
+            }
+
+            Button viewHistoricalReport = (Button) findViewById(R.id.view_historical_report);
+            // only managers can generate historical reports
+            if (facade.getCurrentUser().checkPrivilege() == UserType.MANAGER.getPrivilege()) {
+                viewHistoricalReport.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent viewHistorical = new Intent(MainActivity.this,
+                                HistoricalReportOptionsActivity.class);
+                        startActivity(viewHistorical);
+                    }
+                });
+                viewHistoricalReport.setVisibility(View.VISIBLE);
+            }
         }
 
         Button viewAdminPanel = (Button) findViewById(R.id.view_admin_panel);
@@ -152,5 +155,4 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
     }
-
 }
