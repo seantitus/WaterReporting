@@ -53,35 +53,37 @@ public class ViewUserActivity extends AppCompatActivity {
             unblockAccount.setVisibility(View.VISIBLE);
         }
 
-        Button banAccount = (Button) findViewById(R.id.ban_account);
+        final Button banAccount = (Button) findViewById(R.id.ban_account);
+        final Button unbanAccount = (Button) findViewById(R.id.unban_account);
+        banAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mUser.toggleBan();
+                Toast.makeText(getApplicationContext(), String.format("User %s is now banned from submitting reports",
+                        mUser.getUsername()), Toast.LENGTH_LONG).show();
+
+                // update info
+                mIsBanned.setText(String.format("Is Banned? %s", mUser.isBanned() ? "Yes" : "No"));
+                banAccount.setVisibility(View.GONE);
+                unbanAccount.setVisibility(View.VISIBLE);
+            }
+        });
+        unbanAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mUser.toggleBan();
+                Toast.makeText(getApplicationContext(), String.format("User %s is now permitted to submit reports",
+                        mUser.getUsername()), Toast.LENGTH_LONG).show();
+
+                // update info
+                mIsBanned.setText(String.format("Is Banned? %s", mUser.isBanned() ? "Yes" : "No"));
+                unbanAccount.setVisibility(View.GONE);
+                banAccount.setVisibility(View.VISIBLE);
+            }
+        });
         if (!mUser.isBanned()) {
-            banAccount.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mUser.toggleBan();
-                    Toast.makeText(getApplicationContext(), String.format("User %s is now banned from submitting reports",
-                            mUser.getUsername()), Toast.LENGTH_LONG).show();
-
-                    // update info
-                    mIsBanned.setText(String.format("Is Banned? %s", mUser.isBanned() ? "Yes" : "No"));
-                }
-            });
             banAccount.setVisibility(View.VISIBLE);
-        }
-
-        Button unbanAccount = (Button) findViewById(R.id.unban_account);
-        if (mUser.isBanned()) {
-            unbanAccount.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mUser.toggleBan();
-                    Toast.makeText(getApplicationContext(), String.format("User %s is now permitted to submit reports",
-                            mUser.getUsername()), Toast.LENGTH_LONG).show();
-
-                    // update info
-                    mIsBanned.setText(String.format("Is Banned? %s", mUser.isBanned() ? "Yes" : "No"));
-                }
-            });
+        } else {
             unbanAccount.setVisibility(View.VISIBLE);
         }
 
