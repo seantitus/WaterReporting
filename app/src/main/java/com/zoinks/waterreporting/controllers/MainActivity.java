@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
             });
             viewAdminPanel.setVisibility(View.VISIBLE);
         }
-        
+
         Button updateProfile = (Button) findViewById(R.id.update_profile);
         updateProfile.setOnClickListener(new View.OnClickListener() {
             @Override

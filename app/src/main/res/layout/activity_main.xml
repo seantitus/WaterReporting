@@ -72,6 +72,7 @@
             android:text="@string/new_source_report"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:id="@+id/submit_source_report"/>
 
         <Button
